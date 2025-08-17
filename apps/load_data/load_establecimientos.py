@@ -27,7 +27,8 @@ def load_establecimiento(ANIO):
             if codest not in EXCLUDE_LIBELE:
                 try:
                     # Establecimiento.objects.using(db_name).get(progsub=progsub, codest=codest, desest=desest, anio=anio)
-                    Establecimiento.objects.using(db_name).get(progsub=progsub, codest=codest, anio=anio)
+                    Establecimiento.objects.using(db_name).get(
+                        progsub=progsub, codest=codest, anio=anio)
                     print("No Insert")
                 except Establecimiento.DoesNotExist:
                     Establecimiento.objects.using(db_name).create(progsub=progsub, codest=codest, desest=desest,

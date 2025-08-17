@@ -7,15 +7,24 @@ CORS_ORIGIN_ALLOW_ALL = True
 INSTALLED_APPS = INSTALLED_LIBRARIES + INSTALLED_MODULES
 
 
-
-
 DATABASES = {
     'haberes_2025': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'diris_haberes_2025',
+        'NAME': 'haberes_2025',
         'USER': 'root',
         'PASSWORD': 'Administrador@123',
-        'HOST': '127.0.0.1',
+        'HOST': 'mysql',
+        'PORT': '3306',
+        'OPTIONS': {
+            'sql_mode': 'traditional',
+        }
+    },
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'haberes_2024',
+        'USER': 'root',
+        'PASSWORD': 'Administrador@123',
+        'HOST': 'mysql',
         'PORT': '3306',
         'OPTIONS': {
             'sql_mode': 'traditional',
@@ -23,10 +32,10 @@ DATABASES = {
     },
     'haberes_2024': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'diris_haberes_2020',
+        'NAME': 'haberes_2024',
         'USER': 'root',
         'PASSWORD': 'Administrador@123',
-        'HOST': '127.0.0.1',
+        'HOST': 'mysql',
         'PORT': '3306',
         'OPTIONS': {
             'sql_mode': 'traditional',
@@ -65,7 +74,7 @@ DATABASES = {
             'sql_mode': 'traditional',
         }
     },
-    'default': {
+    'haberes_2020': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'diris_haberes_2020',
         'USER': 'root',

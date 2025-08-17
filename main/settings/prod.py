@@ -3,7 +3,6 @@ from .base import *
 DEBUG = False
 
 ALLOWED_HOSTS = ['*']
- 
 
 INSTALLED_APPS = INSTALLED_LIBRARIES + INSTALLED_MODULES
 
