@@ -1,0 +1,92 @@
+Proceso para subir los datos por año.
+
+Inicialmente se debe ingresar al servidor:
+Este paso se repite cada vez que se desea ingresar al servidor
+
+ssh diris@181.177.233.32
+pass: pinillos21
+
+------------------------------------
+*** Es necesario crear una Base de Datos y realizar las migraciones por cada año que se requiere migrar. (SOLO UNA VEZ)
+
+
+Activar el entorno virtual
+    source /home/diris/vens/diris-haberes/bin/activate
+Dirigirse al proyecto
+    cd /home/diris/apps/diris-haberes/
+
+Migración
+    python manage.py migrate --settings=main.settings.dev --database=haberes_2021
+
+Creación de super usuario
+    python manage.py createsuperuser --settings=main.settings.prod --database=haberes_2021
+------------------------------------
+
+
+------------------------------------ ANUALMENTE ----------------------
+Cargar información de ESTABLECIMIENTOS
+
+Nombre del archivo: PLTABEST.xlsx
+Esta información se debe cargar Anualmente
+python manage.py shell
+
+    execfile('diris_shell.py')
+    exec(open('diris_shell.py').read())
+    load_establecimiento(2021)
+
+
+Carga información de CARGOS
+
+Nombre del archivo: PLTACAR.xlsx
+Esta información se debe cargar Anualmente
+    python manage.py shell
+
+    execfile('diris_shell.py')
+    exec(open('diris_shell.py').read())
+
+load_cargos(2021)
+
+------------------------------------
+
+
+------------------------------------ MENSUALMENTE
+
+Cargar información de CONCEPTOS
+
+Nombre de archivo:  PLTABCON.xlsx
+Esta información se debe cargar mensualmente.
+
+    python manage.py shell --settings=main.settings.prod
+
+    execfile('diris_shell.py')
+    exec(open('diris_shell.py').read())
+
+    load_concepto(7,2021)
+    load_concepto(8,2018)
+    load_concepto(9,2018)
+    load_concepto(10,2018)
+    load_concepto(11,2018)
+    load_concepto(12,2018)
+    …
+    load_concepto(8,2014)
+
+Carga información de CONSTANCIAS
+
+Nombre del archivo: PLMOVMAE.xlsx
+Esta información se debe cargar mensualmente.
+    python manage.py shell
+
+    execfile('diris_shell.py')
+    o
+    exec(open('diris_shell.py').read())
+
+    load_constancia(7,2021)
+    load_constancia(8,2021)
+    load_constancia(9,2021)
+    load_constancia(10,2021)
+    load_constancia(11,2021)
+    load_constancia(12,2021)
+    …
+    load_constancia(2,2021)
+
+-------------------------------------------

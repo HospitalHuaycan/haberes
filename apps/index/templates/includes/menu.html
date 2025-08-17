@@ -1,0 +1,23 @@
+
+
+{% for i in request.session.menu %}
+
+    <li class=" nav-item {% if i.menu.id == request.session.menu_parent %}   open {% endif %} ">
+        <a href="{{ i.menu.url }}?children_id={{ i.menu.id }}">
+            <i class="la la-{{ i.menu.icon }}"></i>
+            <span class="menu-title" data-i18n="">{{ i.menu.name }}</span>
+        </a>
+        <ul class="menu-content">
+            {% for j in i.childrens %}
+                <li class=" {% if j.id == request.session.menu_children %} active  {% endif %}"
+                data-toggle="tooltip" data-placement="left" title="{{ j.name }}">
+                    <a class="menu-item"
+                       href="{{ j.url }}?children_id={{ j.id }}">
+                        <i class="la la-{{ j.icon }}"></i> {{ j.name }}
+                    </a>
+                </li>
+            {% endfor %}
+        </ul>
+    </li>
+
+{% endfor %}

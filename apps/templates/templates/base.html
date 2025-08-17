@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <meta name="description" content="REMUNERACIONES - DIRIS LIMA SUR">
+    <meta name="author" content="DIRIS TI">
+
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i%7CQuicksand:300,400,500,700"
+          rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="{% static 'app-assets/css/vendors.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'app-assets/css/app.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'app-assets/css/core/menu/menu-types/vertical-menu.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'app-assets/css/core/colors/palette-gradient.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'app-assets/css/pages/chat-application.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'app-assets/css/core/colors/palette-gradient.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'app-assets/css/pages/hospital.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'app-assets/css/pages/chat-application.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/spinner.css' %}">
+    <link href="{% static 'css/bootstrap-multiselect.css' %}" rel="stylesheet">
+    <link href="{% static 'css/jquery-ui.css' %}" rel="stylesheet">
+
+    <link rel="icon" type="image/vnd.microsoft.icon" href="{% static 'img/favicon.ico' %}">
+
+    <style>
+        [data-notify="progressbar"] {
+            margin-bottom: 0px;
+            position: absolute;
+            bottom: 0px;
+            left: 0px;
+            width: 100%;
+            height: 5px;
+        }
+
+        .alert {
+            width: 50% !important;
+            border: 4px solid #fff !important;
+        }
+
+    </style>
+
+</head>
+
+<body class="vertical-layout vertical-menu 2-columns   menu-expanded fixed-navbar" data-open="click"
+      style="background-image: url({% static 'img/Fondo-01.jpg' %});"
+      data-menu="vertical-menu" data-col="2-columns">
+
+            <div class="content-spinner" style="z-index: 90000;
+    position: absolute;
+    width: 100%;
+    background: #3bb73640;
+    height: 100%;" >
+                <div class="loader">Loading...</div>
+            </div>
+
+
+{% block main %}
+{% endblock main %}
+
+<script src="{% static 'app-assets/vendors/js/vendors.min.js' %}"></script>
+<script src="{% static 'app-assets/js/core/app-menu.js' %}"></script>
+<script src="{% static 'app-assets/js/core/app.js' %}"></script>
+<script src="{% static 'js/bootstrap-notify.min.js' %} "></script>
+<script src="{% static 'js/jquery-ui.js' %} "></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+<script src="{% static 'js/bootstrap-multiselect.js' %} "></script>
+<script src="{% static 'js/jquery.formset.min.js' %} "></script>
+{#<script src="https://cdn.jsdelivr.net/npm/vue"></script>#}
+{#<script src="https://cdnjs.cloudflare.com/ajax/libs/vue-resource/1.5.1/vue-resource.min.js"></script>#}
+{#<script src="https://cdn.jsdelivr.net/npm/lodash@4.13.1/lodash.min.js"></script>#}
+
+{#<script async src="https://www.googletagmanager.com/gtag/js?id=UA-125078262-4"></script>#}
+{#<script>#}
+{#    window.dataLayer = window.dataLayer || [];#}
+{##}
+{#    function gtag() {#}
+{#        dataLayer.push(arguments);#}
+{#    }#}
+{##}
+{#    gtag('js', new Date());#}
+{#    gtag('config', 'UA-125078262-04');#}
+{#</script>#}
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+<script type="text/javascript">
+
+
+    $(document).ready(function () {
+
+        $(".btnSubmit").click(function () {
+            setTimeout(function () {
+                disableButton();
+            }, 10);
+        });
+
+        function disableButton() {
+
+            $(".btnSubmit").prop('disabled', true);
+
+            setTimeout(function () {
+                $(".btnSubmit").prop('disabled', false);
+            }, 9500);
+        }
+
+
+        var updateDataForm = (dni) => {
+            $.ajax({
+                type: 'GET',
+                {#crossDomain: true,#}
+                dataType: 'json',
+                url: "/legajo/validar-persona/" + dni,
+                data: {},
+                success: function (data) {
+                    if (data) {
+                        if (data.estado === true) {
+                            $('#id_nombres').val(data.persona.name);
+                            $('#id_apellido_paterno').val(data.persona.first_name);
+                            $('#id_apellido_materno').val(data.persona.last_name);
+                            $('#id_numero_documento').val(data.persona.dni);
+                        }
+                    }
+                }
+            });
+        };
+
+        $("#id_numero_documento").keyup(function () {
+
+            console.log(" Número de documento Keyup");
+
+            const dni = $(this).val();
+
+            if (dni.length === 8) {
+                updateDataForm(dni);
+            } else {
+                $('#id_nombres').val("");
+                $('#id_apellido_paterno').val("");
+                $('#id_apellido_materno').val("");
+
+            }
+        });
+
+    });
+</script>
+
+<script type="application/javascript">
+
+    $( ".content-spinner" ).hide();
+
+    $("#anio-main").change(function () {
+
+        $(".content-spinner").show()
+
+        document.location.href = "{% url 'index:change-anio' %}" + "?anio_id=" + $(this).val();
+    });
+
+
+    function readURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                $('#photo')
+                    .attr('src', e.target.result);
+            };
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+
+    function search_submit() {
+        $("#search_form #id_query").val($("#query").val());
+        $("#search_form").submit();
+    }
+
+    $('#search_form select:not("[data-auto-submit=\'no\']")').change(search_submit);
+
+
+    function search_submit_constancia() {
+        $("#search_form_constancia #id_query").val($("#query").val());
+        $("#search_form_constancia #id_dni").val($("#dni").val());
+        $("#search_form_constancia").submit();
+    }
+
+    $('#search_form_constancia select:not("[data-auto-submit=\'no\']")').change(search_submit_constancia);
+
+
+    $('.multiselect').multiselect({
+        enableFiltering: true,
+        includeSelectAllOption: true,
+        maxHeight: 400,
+        minHeight: 250,
+        dropUp: true,
+        buttonText: function (options, select) {
+            if (options.length === 0) {
+                return 'Seleccionar opción';
+            } else if (options.length > 3) {
+                return 'Más de tres.';
+            } else {
+                var labels = [];
+                options.each(function () {
+                    if ($(this).attr('label') !== undefined) {
+                        labels.push($(this).attr('label'));
+                    } else {
+                        labels.push($(this).html());
+                    }
+                });
+                return labels.join(', ') + '';
+            }
+        }
+    });
+
+    $('.multiselectChekbox').multiselect({
+        templates: {
+            button: '',
+            ul: '<ul class="multiselect-container checkbox-list"></ul>',
+        }
+    });
+
+
+</script>
+
+
+{% if messages %}
+    {% for message in messages %}
+        <script>
+            $.notify({
+                title: '<strong>Mensaje: </strong>',
+                message: '{{ message|safe }}.'
+            }, {
+                type: '{{ message.tags }}'
+            });
+        </script>
+    {% endfor %}
+{% endif %}
+
+
+{% if form.non_field_errors %}
+    <script>
+        $.notify({
+            title: '<strong>Mensaje: </strong>',
+            message: '{{ form.non_field_errors }}'
+        }, {
+            type: 'danger'
+        });
+    </script>
+{% endif %}
+
+
+{#{% include 'snippets/sockets.html' %}#}
+
+{% block static %}
+{% endblock static %}
+
+
+</body>
+</html>

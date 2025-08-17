@@ -1,0 +1,307 @@
+{% load static format_money template_constancia %}
+
+
+<style>
+    .content-constancia-model .table th, .content-constancia-model .table td {
+        padding: 4px 15px !important;
+        font-size: 10px !important;
+    }
+</style>
+
+
+<div class="modal-body content-constancia-model">
+    <div class="card border-grey border-lighten-3 px-1 py-1 m-0 mt-2"
+         style="margin-top: 0 !important; padding-top: 0 !important;">
+        <div class="card-header border-0" style=" padding-top: 0 !important; padding-bottom: 0 !important;">
+            <div class="card-title text-center">
+                <h3 class="font-weight-bold" style="text-decoration: underline !important;">
+                    CONSTANCIA DE PAGO DE HABERES Y DESCUENTOS DE LEY
+                </h3>
+            </div>
+            <h6 class="card-subtitle text-muted pt-2" style="padding-top: 15px !important;">
+                <div class=" content-trabajador">
+                    <h6><strong>APELLIDOS Y NOMBRES: </strong>{{ trabajador.get_full_name_two }}</h6>
+                    <h6><strong>ESTABLECIMIENTO: </strong> {% get_establecimiento request.session.anio_bd trabajador anio.id %} </h6>
+                    <h6><strong>CARGO: </strong>{% get_cargo request.session.anio_bd trabajador anio.id %}</h6>
+                    <h6><strong>PERIODO: </strong>{{ anio.anio }}</h6>
+                    <h6><strong>NIVEL: </strong>{{ constancia.nivel|default_if_none:"--" }}</h6>
+                    <h6><strong>PLAZA: </strong>{{ constancia.plaza|default_if_none:"--" }}</h6>
+                </div>
+            </h6>
+        </div>
+        <div class="card-content">
+            <div class="card-body" style="padding-top: 5px !important;padding-bottom: 0 !important;">
+                <p style="margin-bottom: 1px;">
+                    De acuerdo con las planillas de haberes percibidos y los descuentos de Ley, los que se detallan a
+                    cotinuación:</p>
+                <div class="table-responsive" style="border: 1px solid #000000;  box-shadow: 2px 2px 10px #000;">
+                    <table class="table table-striped table-bordered patients-list table-costomized">
+                        <tr class="text-center">
+                            <th colspan="14">INGRESOS</th>
+                        </tr>
+                        <tr>
+                            <th>CONCEPTO</th>
+                            <th>ENERO</th>
+                            <th>FEBRERO</th>
+                            <th>MARZO</th>
+                            <th>ABRIL</th>
+                            <th>MAYO</th>
+                            <th>JUNIO</th>
+                            <th>JULIO</th>
+                            <th>AGOSTO</th>
+                            <th>SETIEMBRE</th>
+                            <th>OCTUBRE</th>
+                            <th>NOVIEMBRE</th>
+                            <th>DICIEMBRE</th>
+                            <th>TOTAL</th>
+                        </tr>
+                        {% for object in  monto_ingreso_list %}
+                            <tr class="text-right">
+                                <td class="text-justify">{{ object.0 }}</td>
+                                <td>{% if object.1.monto %}
+                                    {{ object.1.monto|format_number_to_money }} {% endif %} </td>
+                                <td>{% if object.2.monto %}
+                                    {{ object.2.monto|format_number_to_money }} {% endif %} </td>
+                                <td>{% if object.3.monto %}
+                                    {{ object.3.monto|format_number_to_money }} {% endif %} </td>
+                                <td>{% if object.4.monto %}
+                                    {{ object.4.monto|format_number_to_money }} {% endif %} </td>
+                                <td>{% if object.5.monto %}
+                                    {{ object.5.monto|format_number_to_money }} {% endif %} </td>
+                                <td>{% if object.6.monto %}
+                                    {{ object.6.monto|format_number_to_money }} {% endif %} </td>
+                                <td>{% if object.7.monto %}
+                                    {{ object.7.monto|format_number_to_money }} {% endif %} </td>
+                                <td>{% if object.8.monto %}
+                                    {{ object.8.monto|format_number_to_money }} {% endif %} </td>
+                                <td>{% if object.9.monto %}
+                                    {{ object.9.monto|format_number_to_money }} {% endif %} </td>
+                                <td>{% if object.10.monto %}
+                                    {{ object.10.monto|format_number_to_money }} {% endif %} </td>
+                                <td>{% if object.11.monto %}
+                                    {{ object.11.monto|format_number_to_money }} {% endif %} </td>
+                                <td>{% if object.12.monto %}
+                                    {{ object.12.monto|format_number_to_money }} {% endif %} </td>
+                                <td>{% if object.13 %}
+                                    {{ object.13|format_number_to_money }} {% endif %}
+                                </td>
+                            </tr>
+                        {% endfor %}
+
+                        <tr class="text-right">
+                            {% for object in  monto_ingreso_list_total %}
+                                {% if forloop.counter == 1 %}
+                                    <th class="text-justify">{{ object }}</th>
+                                {% else %}
+                                    <th>{{ object|format_number_to_money }}</th>
+                                {% endif %}
+                            {% endfor %}
+                        </tr>
+
+                        <tr class="text-center">
+                            <th colspan="14" style="background-color: #c1c7ef!important"></th>
+                        </tr>
+
+                        <tr class="text-center">
+                            <th colspan="14">DESCUENTOS DE LEY</th>
+                        </tr>
+
+                        <tr>
+                            <th>CONCEPTO</th>
+                            <th>ENERO</th>
+                            <th>FEBRERO</th>
+                            <th>MARZO</th>
+                            <th>ABRIL</th>
+                            <th>MAYO</th>
+                            <th>JUNIO</th>
+                            <th>JULIO</th>
+                            <th>AGOSTO</th>
+                            <th>SETIEMBRE</th>
+                            <th>OCTUBRE</th>
+                            <th>NOVIEMBRE</th>
+                            <th>DICIEMBRE</th>
+                            <th>TOTAL</th>
+                        </tr>
+                        {% for object in  monto_descuento_list %}
+                            <tr class="text-right">
+                                <td class="text-justify">{{ object.0 }}</td>
+                                <td>{% if object.1.monto %}
+                                    {{ object.1.monto|format_number_to_money }} {% endif %} </td>
+                                <td>{% if object.2.monto %}
+                                    {{ object.2.monto|format_number_to_money }} {% endif %} </td>
+                                <td>{% if object.3.monto %}
+                                    {{ object.3.monto|format_number_to_money }} {% endif %} </td>
+                                <td>{% if object.4.monto %}
+                                    {{ object.4.monto|format_number_to_money }} {% endif %} </td>
+                                <td>{% if object.5.monto %}
+                                    {{ object.5.monto|format_number_to_money }} {% endif %} </td>
+                                <td>{% if object.6.monto %}
+                                    {{ object.6.monto|format_number_to_money }} {% endif %} </td>
+                                <td>{% if object.7.monto %}
+                                    {{ object.7.monto|format_number_to_money }} {% endif %} </td>
+                                <td>{% if object.8.monto %}
+                                    {{ object.8.monto|format_number_to_money }} {% endif %} </td>
+                                <td>{% if object.9.monto %}
+                                    {{ object.9.monto|format_number_to_money }} {% endif %} </td>
+                                <td>{% if object.10.monto %}
+                                    {{ object.10.monto|format_number_to_money }} {% endif %} </td>
+                                <td>{% if object.11.monto %}
+                                    {{ object.11.monto|format_number_to_money }} {% endif %} </td>
+                                <td>{% if object.12.monto %}
+                                    {{ object.12.monto|format_number_to_money }} {% endif %} </td>
+                                <td>{% if object.13 %}
+                                    {{ object.13|format_number_to_money }} {% endif %} </td>
+                            </tr>
+                        {% endfor %}
+
+                        <tr class="text-right">
+                            {% for object in  monto_descuento_list_total %}
+                                {% if forloop.counter == 1 %}
+                                    <th class="text-justify">{{ object }}</th>
+                                {% else %}
+                                    <th>{{ object|format_number_to_money }}</th>
+                                {% endif %}
+                            {% endfor %}
+                        </tr>
+
+                        <tr class="text-center">
+                            <th colspan="14" style="background-color: #c1c7ef!important"></th>
+                        </tr>
+
+
+                        <tr class="text-center">
+                            <th colspan="14">LIQUIDO</th>
+                        </tr>
+
+                        <tr>
+                            <th>CONCEPTO</th>
+                            <th>ENERO</th>
+                            <th>FEBRERO</th>
+                            <th>MARZO</th>
+                            <th>ABRIL</th>
+                            <th>MAYO</th>
+                            <th>JUNIO</th>
+                            <th>JULIO</th>
+                            <th>AGOSTO</th>
+                            <th>SETIEMBRE</th>
+                            <th>OCTUBRE</th>
+                            <th>NOVIEMBRE</th>
+                            <th>DICIEMBRE</th>
+                            <th>TOTAL</th>
+                        </tr>
+
+
+                        <tr class="text-right">
+                            {% for object in  monto_liquido_list_total %}
+                                {% if forloop.counter == 1 %}
+                                    <th class="text-justify">{{ object }}</th>
+                                {% else %}
+                                    <th>{{ object|format_number_to_money }}</th>
+                                {% endif %}
+                            {% endfor %}
+                        </tr>
+
+                        <tr class="text-center">
+                            <th colspan="14" style="background-color: #c1c7ef!important"></th>
+                        </tr>
+
+
+                        <tr class="text-center">
+                            <th colspan="14">APORTACIONES</th>
+                        </tr>
+                        <tr>
+                            <th>CONCEPTO</th>
+                            <th>ENERO</th>
+                            <th>FEBRERO</th>
+                            <th>MARZO</th>
+                            <th>ABRIL</th>
+                            <th>MAYO</th>
+                            <th>JUNIO</th>
+                            <th>JULIO</th>
+                            <th>AGOSTO</th>
+                            <th>SETIEMBRE</th>
+                            <th>OCTUBRE</th>
+                            <th>NOVIEMBRE</th>
+                            <th>DICIEMBRE</th>
+                            <th>TOTAL</th>
+                        </tr>
+                        {% for object in  monto_aportaciones_list %}
+                            <tr class="text-right">
+                                <td class="text-justify">{{ object.0 }}</td>
+                                <td>{% if object.1.monto %}
+                                    {{ object.1.monto|format_number_to_money }} {% endif %} </td>
+                                <td>{% if object.2.monto %}
+                                    {{ object.2.monto|format_number_to_money }} {% endif %} </td>
+                                <td>{% if object.3.monto %}
+                                    {{ object.3.monto|format_number_to_money }} {% endif %} </td>
+                                <td>{% if object.4.monto %}
+                                    {{ object.4.monto|format_number_to_money }} {% endif %} </td>
+                                <td>{% if object.5.monto %}
+                                    {{ object.5.monto|format_number_to_money }} {% endif %} </td>
+                                <td>{% if object.6.monto %}
+                                    {{ object.6.monto|format_number_to_money }} {% endif %} </td>
+                                <td>{% if object.7.monto %}
+                                    {{ object.7.monto|format_number_to_money }} {% endif %} </td>
+                                <td>{% if object.8.monto %}
+                                    {{ object.8.monto|format_number_to_money }} {% endif %} </td>
+                                <td>{% if object.9.monto %}
+                                    {{ object.9.monto|format_number_to_money }} {% endif %} </td>
+                                <td>{% if object.10.monto %}
+                                    {{ object.10.monto|format_number_to_money }} {% endif %} </td>
+                                <td>{% if object.11.monto %}
+                                    {{ object.11.monto|format_number_to_money }} {% endif %} </td>
+                                <td>{% if object.12.monto %}
+                                    {{ object.12.monto|format_number_to_money }} {% endif %} </td>
+                                <td>{% if object.13 %}
+                                    {{ object.13|format_number_to_money }} {% endif %} </td>
+                            </tr>
+                        {% endfor %}
+                        <tr class="text-right">
+                            {% for object in  monto_aportaciones_list_total %}
+                                {% if forloop.counter == 1 %}
+                                    <th class="text-justify">{{ object }}</th>
+                                {% else %}
+                                    <th>{{ object|format_number_to_money }}</th>
+                                {% endif %}
+                            {% endfor %}
+                        </tr>
+                    </table>
+                    <span style="font-size: 8px !important;"><em>CCG-LIQUIDACIONES, OFICINA DE TESORERÍA</em></span>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<div class="modal-footer">
+    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+    <a class="btn btn-warning generate-pdf"
+       href="{% url 'constancia:pdf' %}?trabajador_id={{ trabajador.id }}&anio_id={{ anio.id }}&pk={{ constancia.id }}">
+        <i class="ft-file-text"></i> Generar PDF
+    </a>
+</div>
+
+<script type="text/javascript">
+    $(".modal").animate({
+        scrollTop: 250
+    }, 1000);
+
+    $('.generate-pdf').click(function () {
+        $(this).addClass('disabled');
+        $(this).removeClass('btn-warning');
+        $(this).addClass('btn-danger');
+        $('.generate-pdf').text("Generando PDF...");
+
+
+        setTimeout(function () {
+            $('.generate-pdf').removeClass('disabled');
+            $('.generate-pdf').addClass('btn-warning');
+            $('.generate-pdf').removeClass('btn-danger');
+            $('.generate-pdf').text("");
+            $('.generate-pdf').append("<i class='ft-file-text'></i>Generar PDF</a>");
+
+        }, 8000);
+
+    })
+</script>

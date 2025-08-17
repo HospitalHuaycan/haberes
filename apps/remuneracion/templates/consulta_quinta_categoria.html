@@ -1,0 +1,297 @@
+{% extends 'dashboard.html' %}
+{% load static format_money %}
+{% block  container %}
+
+    <style>
+
+
+    </style>
+
+
+
+
+    <div class="app-content content">
+        <div class="content-wrapper">
+            <div class="content-header row">
+                <div class="content-header-left col-md-6 col-12 mb-2">
+                    <div class="row breadcrumbs-top">
+                        <div class="breadcrumb-wrapper col-12">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item active">Constancias</li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="content-body" id="content-remuneracion">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card border-grey border-lighten-3 px-1 py-1 m-0">
+                            <div class="card-header border-0" style="padding-bottom: 5px;">
+{#                                <div class="card-title text-justify mb-2">#}
+{#                                    <img src="{% static 'img/logo_remuneracion.png' %}" alt="logo"#}
+{#                                         class="img-fluid">#}
+{#                                </div>#}
+                                <h1 class=" text-center pt-2">
+                                    CONSTANCIA DE RETENCIONES DE <br/>QUINTA CATEGORÍA - 2020
+                                </h1>
+                            </div>
+                            <div class="card-content">
+
+
+                                {#                <p class="card-subtitle line-on-side text-muted text-center font-small-3 mx-2 my-1">#}
+                                {#                    <span>Consultar Remuneraciones</span>#}
+                                {#                </p>#}
+
+                                <div class="card-body" style="padding-top: 2px !important;">
+                                    <form class="form-horizonta" action="." method="POST" role="form">
+                                        {% csrf_token %}
+
+                                        <div class="form-row">
+                                            <div class="col-md-4"></div>
+                                            {% include 'includes/bs4_form.html' with form=form col=4 include='dni' exclude='' start_tabindex="0" hidden="" %}
+                                            <div class="col-md-4"></div>
+                                            <div class="col-md-4"></div>
+                                        </div>
+
+                                        <div class="row mt-2">
+                                            <div class="col-md-4"></div>
+                                            <div class="col-md-4">
+                                                <button type="submit" class="btn btn-success btn-block"><i
+                                                        class="ft-unlock"></i> Consultar
+                                                </button>
+                                            </div>
+                                            <div class="col-md-4"></div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        {% if trabajador %}
+                            <div class="card border-grey border-lighten-3 px-1 py-1 m-0 mt-2">
+                                <div class="card-header border-0">
+                                    <div class="card-title text-center">
+                                        <h3 class="font-weight-bold">Datos del Trabajador</h3>
+                                    </div>
+                                    <h6 class="card-subtitle text-muted pt-2">
+                                        <div class="row content-trabajador">
+                                            <div class="col-md-6">
+
+                                                <figure>
+                                                    <blockquote class="blockquote">
+                                                        <p>{{ trabajador.apellidos_nombres }}</p>
+                                                    </blockquote>
+                                                    <figcaption class="blockquote-footer">
+                                                        APELLIDOS Y NOMBRES
+                                                    </figcaption>
+                                                </figure>
+
+                                                <figure>
+                                                    <blockquote class="blockquote">
+                                                        <p>{{ trabajador.plaza }}</p>
+                                                    </blockquote>
+                                                    <figcaption class="blockquote-footer">
+                                                        NÚMERO DE PLAZA
+                                                    </figcaption>
+                                                </figure>
+
+                                                <figure>
+                                                    <blockquote class="blockquote">
+                                                        <p>{{ trabajador.cargo }}</p>
+                                                    </blockquote>
+                                                    <figcaption class="blockquote-footer">
+                                                        CARGO
+                                                    </figcaption>
+                                                </figure>
+
+
+                                            </div>
+                                            <div class="col-md-6">
+
+                                                <figure>
+                                                    <blockquote class="blockquote">
+                                                        <p>{{ trabajador.depedencia.entidad_ejecutora.nombre }}</p>
+                                                    </blockquote>
+                                                    <figcaption class="blockquote-footer">
+                                                        ENTIDAD EJECUTORA
+                                                    </figcaption>
+                                                </figure>
+                                                <figure>
+                                                    <blockquote class="blockquote">
+                                                        <p>{{ trabajador.depedencia.nombre }}</p>
+                                                    </blockquote>
+                                                    <figcaption class="blockquote-footer">
+                                                        DEPENDENCIA
+                                                    </figcaption>
+                                                </figure>
+                                                <figure>
+                                                    <blockquote class="blockquote">
+                                                        <p>{{ trabajador.get_tipo_display }}</p>
+                                                    </blockquote>
+                                                    <figcaption class="blockquote-footer">
+                                                        TIPO DE TRABAJADOR
+                                                    </figcaption>
+                                                </figure>
+
+                                            </div>
+                                        </div>
+                                    </h6>
+                                </div>
+                                <div class="card-content">
+                                    <div class="card-title text-center">
+                                        <h3 class="font-weight-bold">Remuneraciones</h3>
+                                    </div>
+
+
+                                    {% for object in  remuneraciones %}
+                                        <p class="card-subtitle line-on-side text-muted text-center font-small-3 mx-2 my-1">
+                        <span style="color: #fff; background: red; border-radius: 5px;">
+                            AÑO: {{ object.anio }}</span>
+                                        </p>
+                                        <p class="text-center" style="margin-bottom: 0;"><strong>CONSTANCIA DE
+                                            REMUNERACIONES Y
+                                            RETENCIONES EFECTUADOS<br/>
+                                            POR IMPUESTO A LA 5TA. CATEGORIA PERIODO DEL {{ object.anio }} <br/>
+                                            D.S. N° 179-2004-EF Art° 71
+                                        </strong></p>
+                                        <div class="card-body" style="padding-top: 5px !important;">
+
+                                            <div class="table-responsive">
+                                                <table class="table table-striped table-bordered patients-list table-costomized"
+                                                       style=" margin-bottom: 2px !important;">
+                                                    <thead>
+
+
+                                                    <tr class="text-center">
+                                                        <th rowspan="2">MES</th>
+                                                        <th colspan="4" class="text-center"> INGRESOS</th>
+                                                        <th rowspan="2"> RETENCIÓN <br/>x EFECTUAR</th>
+                                                        <th colspan="4" class="text-center"> RETENCIONES</th>
+                                                        <th rowspan="2">TOTAL A PAGAR <br/>O DEVOLVER</th>
+
+                                                    </tr>
+
+                                                    <tr>
+
+                                                        <th>REMU/V.P.</th>
+                                                        <th>OTRAS VE</th>
+                                                        <th>OTROS</th>
+                                                        <th>TOTAL</th>
+                                                        <th>REMU/V.P.</th>
+                                                        <th>ADICIONAL</th>
+                                                        <th>OTRAS</th>
+                                                        <th>TOTAL</th>
+                                                    </tr>
+
+
+                                                    </thead>
+                                                    <tbody>
+                                                    {% for item in object.detalleremuneracion_set.all %}
+                                                        <tr class="text-right">
+                                                            <td class="text-center">{{ item.get_mes_display }}</td>
+                                                            <td>{{ item.ingresos_remu_v_p|format_number_to_money }}</td>
+                                                            <td>{{ item.ingresos_otras_ue|format_number_to_money }}</td>
+                                                            <td>{{ item.ingresos_otros|format_number_to_money }}</td>
+                                                            <td>{{ item.ingresos_total|format_number_to_money }}</td>
+                                                            <td>{{ item.retencion_efectuar|format_number_to_money }}</td>
+                                                            <td>{{ item.retencion_remu_v_p|format_number_to_money }}</td>
+                                                            <td>{{ item.retencion_adicional|format_number_to_money }}</td>
+                                                            <td>{{ item.retencion_otros|format_number_to_money }}</td>
+                                                            <td>{{ item.retencion_total|format_number_to_money }}</td>
+                                                            <td>{{ item.total_pagar|format_number_to_money }}</td>
+                                                        </tr>
+                                                    {% endfor %}
+
+                                                    <tr class="text-right">
+                                                        <th class="text-center">TOTAL</th>
+                                                        <th>{{ object.ingresos_remu_v_p|format_number_to_money }}</th>
+                                                        <th>{{ object.ingresos_otras_ue|format_number_to_money }}</th>
+                                                        <th>{{ object.ingresos_otros|format_number_to_money }}</th>
+                                                        <th>{{ object.ingresos_total|format_number_to_money }}</th>
+                                                        <th>{{ object.retencion_efectuar|format_number_to_money }}</th>
+                                                        <th>{{ object.retencion_remu_v_p|format_number_to_money }}</th>
+                                                        <th>{{ object.retencion_adicional|format_number_to_money }}</th>
+                                                        <th>{{ object.retencion_otros|format_number_to_money }}</th>
+                                                        <th>{{ object.retencion_total|format_number_to_money }}</th>
+                                                        <th>{{ object.total_pagar|format_number_to_money }}</th>
+                                                    </tr>
+                                                    </tbody>
+                                                </table>
+                                                <span><em>Fuente: Equipo de Remuneraciones-MINSA</em></span>
+                                            </div>
+                                            <p><strong>PUEDEN EXISTIR DIFERENCIAS ENTRE ESTA CONSTANCIA CON LO REALMENTE
+                                                PERCIBIDO,
+                                                DEBIDO A LOS AJUSTES EFECTUADOS POR LAS OFICINAS
+                                                PAGADORAS DE LAS UNIDADES EJECUTORAS DEL SECTOR, QUIENES DEBEN HACER LAS
+                                                CORRECCIONES
+                                                PERTINENTES ANTE LA SUNAT.</strong></p>
+
+                                            <div class="text-right">
+                                                <a class="btn btn-warning btn-sm generate-pdf"
+                                                   href="{% url 'remuneracion:report' %}">
+                                                    <i class="ft-file-text"></i>
+                                                    Generar PDF</a>
+                                            </div>
+
+                                        </div>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+{% endblock container %}
+
+
+
+{% block static %}
+
+
+    <script type="application/javascript">
+
+
+        $(document).ready(function () {
+
+
+        });
+
+
+        $("html, body").animate({
+            scrollTop: 600
+        }, 2000);
+
+
+        $('.generate-pdf').click(function () {
+            $(this).addClass('disabled');
+            $(this).removeClass('btn-warning');
+            $(this).addClass('btn-danger');
+            $('.generate-pdf').text("Generando PDF...");
+
+
+            setTimeout(function () {
+                $('.generate-pdf').removeClass('disabled');
+                $('.generate-pdf').addClass('btn-warning');
+                $('.generate-pdf').removeClass('btn-danger');
+                $('.generate-pdf').text("");
+                $('.generate-pdf').append("<i class='ft-file-text'></i>Generar PDF</a>");
+
+            }, 8000);
+
+        })
+
+        $('#sesionExpiradaModal').on('hidden.bs.modal', function () {
+            document.location.href = '/';
+        })
+
+
+    </script>
+
+{% endblock static %}

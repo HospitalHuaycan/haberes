@@ -1,0 +1,129 @@
+{#{% extends 'dashboard.html' %}#}
+{##}
+{#{% block  container %}#}
+{##}
+{#    <div class="app-content content">#}
+{#        <div class="content-wrapper">#}
+{#            <div class="content-header row">#}
+{#                <div class="content-header-left col-md-6 col-12 mb-2">#}
+{#                    <div class="row breadcrumbs-top">#}
+{#                        <div class="breadcrumb-wrapper col-12">#}
+{#                            <ol class="breadcrumb">#}
+{#                                <li class="breadcrumb-item active">Configuraciones</li>#}
+{#                                <li class="breadcrumb-item active">Usuarios</li>#}
+{#                                <li class="breadcrumb-item ">#}
+{#                                    <a href="{% url 'person:list' %}">Todos los usuarios</a></li>#}
+{#                                <li class="breadcrumb-item active">{{ title }}</li>#}
+{#                            </ol>#}
+{#                        </div>#}
+{#                    </div>#}
+{#                </div>#}
+{#            </div>#}
+{##}
+{#            <div class="content-body">#}
+{#                <section id="patients-list">#}
+{#                    <div class="row">#}
+{#                        <div class="col-12">#}
+{#                            <div class="card">#}
+{#                                <div class="card-header">#}
+{#                                    <h2 class="card-title">{{ title }}</h2>#}
+{#                                </div>#}
+{#                                <div class="card-body collapse show">#}
+{#                                    <form class="text-left was-validated form-validate" method="POST">#}
+{#                                        {% csrf_token %}#}
+{##}
+{#                                        <div class="form-row">#}
+{##}
+{#                                            {% include 'includes/input_file.html' with name='person-photo' url_default='/patients/avatar-default.png' input=person.photo col=12 %}#}
+{#                                            {% if form.instance.id %}#}
+{#                                                <div class="col-md-04">#}
+{#                                                    <label for="id_person-username">Contraseña:</label>#}
+{#                                                    <div class="form-group">#}
+{#                                                        <a href="{% url 'person:password' form.instance.id %}"#}
+{#                                                           class="btn btn-warning ">Cambiar#}
+{#                                                            contraseña</a>#}
+{#                                                    </div>#}
+{#                                                </div>#}
+{#                                                {% include 'includes/bs4_form.html' with form=form col=04 exclude='photo' start_tabindex="1" hidden="last_login is_superuser  user_permissions is_staff password" multiselect="multiselect" select_type="chekbox" %}#}
+{#                                            {% else %}#}
+{#                                                {% include 'includes/bs4_form.html' with form=form col=04 exclude='photo' start_tabindex="1" hidden="last_login is_superuser  user_permissions is_staff" multiselect="multiselect" select_type="chekbox" %}#}
+{#                                            {% endif %}#}
+{##}
+                                            {#                                            {% include 'includes/ubigeo_form.html' with form=form col=04 start_tabindex="0" %}#}
+{##}
+                                            {#                                            {% include 'includes/ubigeo_form.html' with form=form col=04 start_tabindex="0" %}#}
+{##}
+{#                                        </div>#}
+{#                                        <div class="form-group">#}
+{#                                            <div class="text-right">#}
+{#                                                <a type="button" href="{% url 'person:list' %}"#}
+{#                                                   class="btn  btn-danger form-button">Cancelar</a>#}
+{#                                                <button type="submit" class="btn btn-success form-button btnSubmit">#}
+{#                                                    Guardar#}
+{#                                                </button>#}
+{#                                            </div>#}
+{#                                        </div>#}
+{#                                    </form>#}
+{#                                </div>#}
+{#                            </div>#}
+{#                        </div>#}
+{#                    </div>#}
+{#                </section>#}
+{#            </div>#}
+{#        </div>#}
+{#    </div>#}
+{##}
+{#{% endblock container %}#}
+{##}
+{#{% block static %}#}
+{##}
+{##}
+{#    <script type="application/javascript">#}
+{##}
+{#        window.addEventListener("load", function (event) {#}
+{##}
+{##}
+{#            setTimeout(function () {#}
+{#                $('#id_password').get(0).type = 'password';#}
+{#            }, 500);#}
+{##}
+{#        });#}
+{##}
+{##}
+{#        $(function () {#}
+{##}
+{#            // Buscar datos personales por DNI#}
+{#            $('#id_document').keyup(function () {#}
+{#                if ($(this).val().length === 8) {#}
+{##}
+{#                    $.ajax({#}
+{#                        type: 'GET',#}
+                        {#crossDomain: true,#}
+                        {#dataType: 'jsonp',#}
+{#                        url: "https://dni.optimizeperu.com/api/persons/" + $(this).val(),#}
+{#                        data: {},#}
+{#                        success: function (data) {#}
+{#                            if (data.name) {#}
+{#                                $('#id_name').val(data.name);#}
+{#                                $('#id_first_name').val(data.first_name);#}
+{#                                $('#id_last_name').val(data.last_name);#}
+{#                            } else {#}
+{#                                $('#id_name').val("");#}
+{#                                $('#id_first_name').val("");#}
+{#                                $('#id_last_name').val("");#}
+{#                            }#}
+{#                        }#}
+{#                    });#}
+{#                } else {#}
+{#                    $('#id_name').val("");#}
+{#                    $('#id_first_name').val("");#}
+{#                    $('#id_last_name').val("");#}
+{#                }#}
+{#            });#}
+{#        });#}
+{##}
+{#    </script>#}
+{##}
+    {#    {% include 'includes/ubigeo_js.html' with form=form object=person %}#}
+{##}
+{#{% endblock static %}#}
