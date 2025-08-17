@@ -7,7 +7,8 @@ services:
     ports:
       - "${APP_PORT:-8000}:8000"
     depends_on:
-      - mysql
+      mysql:
+        condition: service_healthy
     # environment:
     #   - DEBUG=1
     #   - DJANGO_ALLOWED_HOSTS=localhost 127.0.0.1 [::1]

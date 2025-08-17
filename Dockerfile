@@ -1,7 +1,7 @@
 # [Choice] Python version (use -bookworm or -bullseye variants on local arm64/Apple Silicon): 3, 3.13, 3.12, 3.11, 3.10, 3.9, 3-bookworm, 3.13-bookworm, 3.12-bookworm, 3.11-bookworm, 3.10-bookworm, 3.9-bookworm, 3-bullseye, 3.13-bullseye, 3.12-bullseye, 3.11-bullseye, 3.10-bullseye, 3.9-bullseye, 3-buster, 3.12-buster, 3.11-buster, 3.10-buster, 3.9-buster
 ARG VARIANT=3.8-bookworm
 FROM python:${VARIANT}
-
+ARG WWWGROUP=1000
 RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
     # Remove imagemagick due to https://security-tracker.debian.org/tracker/CVE-2019-10131
     && apt-get purge -y imagemagick imagemagick-6-common
@@ -16,7 +16,8 @@ RUN python3 -m pip install --upgrade \
 ENV PYTHONDONTWRITEBYTECODE=1
 ENV PYTHONUNBUFFERED=1
 
-
+RUN groupadd --force -g $WWWGROUP appuser
+RUN useradd -ms /bin/bash --no-user-group -g $WWWGROUP -u 1337 appuser
 
 # Configurar directorio de trabajo
 WORKDIR /app
@@ -31,7 +32,9 @@ COPY . /app/
 # COPY requirements.txt /tmp/pip-tmp/
 # RUN pip3 --disable-pip-version-check --no-cache-dir install -r /tmp/pip-tmp/requirements.txt \
 #    && rm -rf /tmp/pip-tmp
-
+# Cambia la propiedad de los archivos a appuser
+RUN chown -R appuser:appuser /app
+USER appuser
 # [Optional] Uncomment this section to install additional OS packages.
 # RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
 #     && apt-get -y install --no-install-recommends <your-package-list-here>
