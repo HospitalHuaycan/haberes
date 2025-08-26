@@ -8,9 +8,9 @@ RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
 
 # Temporary: Upgrade python packages due to https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2022-40897 and https://github.com/advisories/GHSA-2mqj-m65w-jghx
 # They are installed by the base image (python) which does not have the patch.
-RUN python3 -m pip install --upgrade \
-    setuptools \
-    gitpython
+# RUN python3 -m pip install --upgrade \
+#     setuptools \
+#     gitpython
 
 # Evita que Python guarde archivos .pyc y que bufferice logs
 ENV PYTHONDONTWRITEBYTECODE=1
@@ -20,22 +20,19 @@ RUN groupadd --force -g $WWWGROUP appuser
 RUN useradd -ms /bin/bash --no-user-group -g $WWWGROUP -u 1337 appuser
 
 # Configurar directorio de trabajo
-WORKDIR /app
+WORKDIR /code
 
 # Copiar requirements y luego instalar
-COPY requirements.txt /app/
-RUN pip install --no-cache-dir -r requirements.txt
+COPY requirements.txt requirements.txt
+RUN pip install --no-cache-dir --upgrade -r requirements.txt
 
 # Copiar todo el proyecto
-COPY . /app/
+COPY . .
 RUN python manage.py collectstatic --noinput
-# [Optional] If your pip requirements rarely change, uncomment this section to add them to the image.
-# COPY requirements.txt /tmp/pip-tmp/
-# RUN pip3 --disable-pip-version-check --no-cache-dir install -r /tmp/pip-tmp/requirements.txt \
-#    && rm -rf /tmp/pip-tmp
-# Cambia la propiedad de los archivos a appuser
-RUN chown -R appuser:appuser /app
+RUN chown -R appuser:appuser /code
 USER appuser
+EXPOSE 8000
+CMD [ "manage.py", "runserver", "0.0.0.0"]
 # [Optional] Uncomment this section to install additional OS packages.
 # RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
 #     && apt-get -y install --no-install-recommends <your-package-list-here>
