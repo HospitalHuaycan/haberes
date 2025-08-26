@@ -1,22 +1,18 @@
 {
-  "dockerComposeFile": ["../compose.yml"],
-  "service": "app",
-  "workspaceFolder": "/app",
+  "name": "HABERES DJANGO Development",
+  "dockerComposeFile": ["./compose.dev.yml"],
+  "service": "haberes-devcontainer",
+  "workspaceFolder": "/code",
   "features": {
     "ghcr.io/devcontainers/features/common-utils:2": {
       "installZsh": "true",
       "configureZshAsDefaultShell": "true",
       "username": "vscode",
-      // "userUid": "1000",
-      // "userGid": "1000",
+      "userUid": "1000",
+      "userGid": "1000",
       "upgradePackages": "true"
     },
-    "ghcr.io/devcontainers/features/python:1": "none",
-    "ghcr.io/devcontainers/features/node:1": "none",
-    "ghcr.io/devcontainers/features/git:1": {
-      "version": "latest",
-      "ppa": "false"
-    }
+    "ghcr.io/devcontainers/features/node:1": "none"
   },
   // Configure tool-specific properties.
   "customizations": {
@@ -25,7 +21,13 @@
       // Set *default* container specific settings.json values on container create.
       "settings": {
         "editor.formatOnSave": true,
-        "python.defaultInterpreterPath": "/usr/local/bin/python"
+        "python.defaultInterpreterPath": "/usr/local/bin/python",
+        "editor.defaultFormatter": "ms-python.black-formatter",
+        "isort.args": ["--profile", "black"],
+        "[python]": {
+          // "editor.formatOnType": true,
+          "editor.formatOnSave": true
+        }
       },
       "extensions": [
         "mikestead.dotenv",
@@ -37,19 +39,27 @@
         "usernamehw.errorlens",
         "ms-azuretools.vscode-docker",
         "damms005.devdb",
-        "esbenp.prettier-vscode"
+        "esbenp.prettier-vscode",
+        "ms-python.python",
+        "KevinRose.vsc-python-indent",
+        "ms-python.black-formatter",
+        "ms-python.isort"
       ]
     }
   },
   // Use 'forwardPorts' to make a list of ports inside the container available locally.
   // "forwardPorts": [],
+  "forwardPorts": [9000],
+  // Comando post-creación para instalar dependencias
+  "postCreateCommand": "pip install -r requirements.txt && pip install -r requirements-dev.txt",
 
-  // Use 'postCreateCommand' to run commands after the container is created.
-  // "postCreateCommand": "pip3 install --user -r requirements.txt",
+  // Comando post-inicio
+  "postStartCommand": "echo 'Devcontainer iniciado! La aplicación estará disponible en http://localhost:8000'",
+  // Configuración de usuario
+  "remoteUser": "vscode",
+  "containerUser": "vscode",
   "mounts": [
-    "source=${localEnv:HOME}/.ssh,target=/home/vscode/.ssh,type=bind,consistency=cached",
-    "source=${localEnv:HOME}/.ssh,target=/home/appuser/.ssh,type=bind,consistency=cached"
-  ],
-  // Set `remoteUser` to `root` to connect as root instead. More info: https://aka.ms/vscode-remote/containers/non-root.
-  "remoteUser": "appuser"
+    "source=${localEnv:HOME}/.ssh,target=/home/vscode/.ssh,type=bind,consistency=cached"
+    // "source=${localEnv:HOME}/.ssh,target=/home/appuser/.ssh,type=bind,consistency=cached"
+  ]
 }

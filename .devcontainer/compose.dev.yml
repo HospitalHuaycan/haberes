@@ -1,0 +1,53 @@
+services:
+  # Aplicación FastAPI
+  haberes-devcontainer:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    container_name: haberes-devcontainer
+    command: sleep infinity
+    ports:
+      - "9000:8000"
+    depends_on:
+      mysql:
+        condition: service_healthy
+    # environment:
+    #   - DB_SERVER=${DB_SERVER:-sqlserver}
+    #   - DB_NAME=${DB_NAME:-master}
+    #   - DB_USER=${DB_USER:-sa}
+    #   - DB_PASSWORD=${DB_PASSWORD:-YourStrong@Passw0rd}
+    #   - DB_DRIVER=${DB_DRIVER:-ODBC Driver 18 for SQL Server}
+    #   - REDIS_URL=redis://redis:6379/0
+    #   - DEBUG=true
+    volumes:
+      - ../:/code
+    restart: unless-stopped
+    # healthcheck:
+    #   test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+    #   interval: 30s
+    #   timeout: 10s
+    #   retries: 1
+  mysql:
+    image: "mysql/mysql-server:8.0"
+    container_name: haberes-db
+    ports:
+      - "${FORWARD_DB_PORT:-3306}:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: "${DB_PASSWORD}"
+      MYSQL_ROOT_HOST: "%"
+      MYSQL_DATABASE: "${DB_DATABASE}"
+      MYSQL_USER: "${DB_USERNAME}"
+      MYSQL_PASSWORD: "${DB_PASSWORD}"
+      MYSQL_ALLOW_EMPTY_PASSWORD: 1
+    volumes:
+      - "haberes_data:/var/lib/mysql"
+    healthcheck:
+      test:
+        - CMD
+        - mysqladmin
+        - ping
+        - "-p${DB_PASSWORD}"
+      retries: 3
+      timeout: 5s
+volumes:
+  haberes_data:

@@ -1,0 +1,54 @@
+# [Choice] Python version (use -bookworm or -bullseye variants on local arm64/Apple Silicon): 3, 3.13, 3.12, 3.11, 3.10, 3.9, 3-bookworm, 3.13-bookworm, 3.12-bookworm, 3.11-bookworm, 3.10-bookworm, 3.9-bookworm, 3-bullseye, 3.13-bullseye, 3.12-bullseye, 3.11-bullseye, 3.10-bullseye, 3.9-bullseye, 3-buster, 3.12-buster, 3.11-buster, 3.10-buster, 3.9-buster
+ARG VARIANT=3.8-bookworm
+FROM python:${VARIANT}
+# Variables de entorno
+ENV PYTHONUNBUFFERED=1 \
+    PYTHONDONTWRITEBYTECODE=1 \
+    PIP_NO_CACHE_DIR=1 \
+    PIP_DISABLE_PIP_VERSION_CHECK=1
+
+# Instalar dependencias del sistema como root
+USER root
+RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
+# Actualizar sistema e instalar dependencias
+RUN apt-get update && apt-get install -y \
+    curl \
+    gnupg2 \
+    unixodbc \
+    unixodbc-dev \
+    g++ \
+    git \
+    # vim \
+    nano \
+    htop \
+    tree \
+    wget \
+    zip \
+    unzip \
+    && rm -rf /var/lib/apt/lists/*
+
+# Instalar herramientas de desarrollo adicionales
+# RUN pip install --upgrade pip \
+#     && pip install \
+#     black \
+#     flake8 \
+#     isort \
+#     pylint \
+#     pytest \
+#     pytest-cov \
+#     pre-commit \
+#     httpx \
+#     jupyter \
+#     ipython
+
+# Cambiar al usuario vscode
+# USER vscode
+
+# Configurar directorio de trabajo
+WORKDIR /code
+
+# Configurar Git (opcional)
+RUN git config --global --add safe.directory /code
+
+# Configurar shell
+# SHELL ["/bin/bash", "-c"]
