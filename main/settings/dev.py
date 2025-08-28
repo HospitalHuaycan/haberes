@@ -5,7 +5,8 @@ DEBUG = True
 CORS_ORIGIN_ALLOW_ALL = True
 
 INSTALLED_APPS = INSTALLED_LIBRARIES + INSTALLED_MODULES
-
+SESSION_COOKIE_AGE = 60 * 60 *2
+SESSION_EXPIRE_AT_BROWSER_CLOSE = False
 
 DATABASES = {
     'haberes_2025': {
@@ -21,7 +22,18 @@ DATABASES = {
     },
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'haberes_2024',
+        'NAME': 'haberes_2025',
+        'USER': 'root',
+        'PASSWORD': 'Administrador@123',
+        'HOST': 'mysql',
+        'PORT': '3306',
+        'OPTIONS': {
+            'sql_mode': 'traditional',
+        }
+    },
+    'haberes_2025': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'haberes_2025',
         'USER': 'root',
         'PASSWORD': 'Administrador@123',
         'HOST': 'mysql',
