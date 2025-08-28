@@ -9,17 +9,6 @@ SESSION_COOKIE_AGE = 60 * 60 *2
 SESSION_EXPIRE_AT_BROWSER_CLOSE = False
 
 DATABASES = {
-    'haberes_2025': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'haberes_2025',
-        'USER': 'root',
-        'PASSWORD': 'Administrador@123',
-        'HOST': 'mysql',
-        'PORT': '3306',
-        'OPTIONS': {
-            'sql_mode': 'traditional',
-        }
-    },
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'haberes_2025',
