@@ -13,7 +13,7 @@ from datetime import datetime
 from io import BytesIO
 
 from django.conf import settings
-from reportlab.lib.enums import TA_CENTER, TA_RIGHT, TA_JUSTIFY
+from reportlab.lib.enums import TA_CENTER, TA_RIGHT, TA_JUSTIFY, TA_LEFT
 # -*- coding: utf-8 -*-
 from reportlab.lib.pagesizes import letter, A4
 from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
@@ -58,7 +58,7 @@ sp_justifi_title_table_2 = ParagraphStyle('parrafos',
                                         alignment=TA_JUSTIFY,
                                         fontSize=8,
                                         leading=10,
-                                        fontName="Times-Roman" 
+                                        fontName="Times-Roman"
 )
 
 sp_subtitle = ParagraphStyle('parrafos',
@@ -101,7 +101,42 @@ sp_footer = ParagraphStyle('parrafos',
                            leading=10,
                            fontName="Times-Roman")
 
+sp_concepto = ParagraphStyle('concepto',
+                            alignment=TA_LEFT,
+                            fontSize=6,
+                            leading=7,
+                            fontName="Times-Roman",
+                            splitLongWords=True,
+                            breakLongWords=True,
+                            wordWrap='LTR')
+
 ROW_HEIGHT = 3.5 * mm
+CABECERAS = [   Paragraph(u"CODIGO", sp_justifi_title_header),
+                Paragraph(u"CONCEPTO", sp_concepto),
+                Paragraph(u"ENE", sp_justifi_title_header),
+                Paragraph(u"FEB", sp_justifi_title_header),
+                Paragraph(u"MAR", sp_justifi_title_header),
+                Paragraph(u"ABR", sp_justifi_title_header),
+                Paragraph(u"MAY", sp_justifi_title_header),
+                Paragraph(u"JUN", sp_justifi_title_header),
+                Paragraph(u"JUL", sp_justifi_title_header),
+                Paragraph(u"AGO", sp_justifi_title_header),
+                Paragraph(u"SET", sp_justifi_title_header),
+                Paragraph(u"OCT", sp_justifi_title_header),
+                Paragraph(u"NOV", sp_justifi_title_header),
+                Paragraph(u"DIC", sp_justifi_title_header),
+                Paragraph(u"TOTAL", sp_justifi_title_header)]
+
+# Obtener el ancho total de la página
+PAGE_WIDTH, PAGE_HEIGHT = A4
+
+# Calcular el ancho total que ocupará la tabla
+TABLE_WIDTH = PAGE_WIDTH - 22  # Un margen de 20 puntos en cada lado
+
+# Definir proporciones para las columnas (ajustando la segunda columna a un tamaño mayor)
+COL_WIDTHS = [TABLE_WIDTH * 0.06, TABLE_WIDTH * 0.40, TABLE_WIDTH * 0.07, TABLE_WIDTH * 0.07, TABLE_WIDTH * 0.07,
+            TABLE_WIDTH * 0.07, TABLE_WIDTH * 0.07, TABLE_WIDTH * 0.07, TABLE_WIDTH * 0.07, TABLE_WIDTH * 0.07,
+            TABLE_WIDTH * 0.07, TABLE_WIDTH * 0.07, TABLE_WIDTH * 0.07, TABLE_WIDTH * 0.07]
 
 
 class ReportSimulator():
@@ -143,21 +178,27 @@ class ReportSimulator():
         #                     fontName="Times-Roman",
         #                     )
         try:
-            archivo_imagen = os.path.join(settings.STATIC_LOCAL_ROOT, "img/Logo-01.jpg")
-            archivo_diris = os.path.join(settings.STATIC_LOCAL_ROOT, "img/logo_remuneracion.png")
-            imagen = Image(archivo_imagen, width=310, height=50)
+            archivo_imagen = os.path.join(settings.STATIC_LOCAL_ROOT, "img/LogoInforme.jpg")
+            huaycan_png = os.path.join(settings.STATIC_LOCAL_ROOT, "img/huaycan.png")
+            imagen = Image(archivo_imagen, width=350, height=50)
+            logo_huaycan = Image(huaycan_png, width=100, height=50)
             # imagen_canchis = Image(archivo_diris, width=100, height=100, hAlign='RIGHT')
         except:
-            imagen = Paragraph(u"LOGO", sp)
+            imagen = Paragraph(u"LOGO", sp_concepto)
+            logo_huaycan = Paragraph(u"LOGO HUAYCAN", sp_date)
 
         date_ = Paragraph(
             u"" + now.strftime("%d/%m/%Y") + " <br/> " + now.strftime("%H:%M:%S") + "<br/> <br/> <br/> ", sp_date)
-        encabezado = [[imagen, "", date_]]
-        tabla_encabezado = Table(encabezado)
+        encabezado = [[imagen, "", logo_huaycan]]
+        tabla_encabezado = Table(encabezado,colWidths=[TABLE_WIDTH * 0.6,TABLE_WIDTH * 0.4,TABLE_WIDTH * 0.4])
 
         tabla_encabezado.setStyle(TableStyle(
             [
-                ('ALIGN', (0, 0), (-1, -1), 'CENTER'),
+                # ('ALIGN', (0, 0), (-1, -1), 'CENTER'),
+                ('ALIGN', (0, 0), (0, 0), 'LEFT'),  # Fondo gris en la última celda (logo derecho)
+                ('ALIGN', (2, 0), (2, 0), 'RIGHT'),  # Fondo gris en la última celda (logo derecho)
+                # ('BACKGROUND', (2, 0), (2, 0), colors.grey),  # Fondo gris en la última celda (logo derecho)
+                # ('BACKGROUND', (1, 0), (1, 0), colors.lightblue),  # Fondo gris en la última celda (logo derecho)
             ]
         ))
         return tabla_encabezado
@@ -212,29 +253,15 @@ class ReportSimulator():
 
         data_title = [
             [Paragraph(u"INGRESOS", sp_justifi_title_header), "", "", "", "", "", "", "", "", "", "", "", "", ""],
-            [
-                Paragraph(u"CONCEPTO", sp_justifi_title_header),
-                Paragraph(u"ENERO", sp_justifi_title_header),
-                Paragraph(u"FEBRERO", sp_justifi_title_header),
-                Paragraph(u"MARZO", sp_justifi_title_header),
-                Paragraph(u"ABRIL", sp_justifi_title_header),
-                Paragraph(u"MAYO", sp_justifi_title_header),
-                Paragraph(u"JUNIO", sp_justifi_title_header),
-                Paragraph(u"JULIO", sp_justifi_title_header),
-                Paragraph(u"AGOSTO", sp_justifi_title_header),
-                Paragraph(u"SETIEMBRE", sp_justifi_title_header),
-                Paragraph(u"OCTUBRE", sp_justifi_title_header),
-                Paragraph(u"NOVIEMBRE", sp_justifi_title_header),
-                Paragraph(u"DICIEMBRE", sp_justifi_title_header),
-                Paragraph(u"TOTAL", sp_justifi_title_header),
-            ],
+            CABECERAS
         ]
 
         data_body = []
         for object in self.constancia['monto_ingreso_list']:
             data_body.append(
                 [
-                    Paragraph(u"" + object[0], sp_justifi_title_header),
+                    Paragraph(u"" + object[0].codcon, sp_justifi_title_header),
+                    Paragraph(u"" + object[0].descon, sp_concepto),
                     Paragraph(u"" +
                               '{:,.2f}'.format(object[1].monto) if object[1] != " " else " ", sp_justifi_title_body),
                     Paragraph(u"" +
@@ -268,12 +295,13 @@ class ReportSimulator():
         for index, object in enumerate(self.constancia['monto_ingreso_list_total']):
             if index == 0:
                 data_total.append(Paragraph(u"" + object, sp_justifi_title_header))
+                data_total.append(Paragraph("", sp_justifi_title_header))
             else:
                 data_total.append(Paragraph(u"" + '{:,.2f}'.format(object), sp_justifi_title_body))
 
         data_body.append(data_total)
 
-        tabla = Table(data_title + data_body, rowHeights=ROW_HEIGHT)
+        tabla = Table(data_title+data_body, colWidths=COL_WIDTHS, rowHeights=ROW_HEIGHT)
         tabla.setStyle(TableStyle(
             [
                 ('SPAN', (0, 0), (-1, 0)),
@@ -295,29 +323,15 @@ class ReportSimulator():
         data_title = [
             [Paragraph(u"DESCUENTOS DE LEY", sp_justifi_title_header), "", "", "", "", "", "", "", "", "", "", "", "",
              ""],
-            [
-                Paragraph(u"CONCEPTO", sp_justifi_title_header),
-                Paragraph(u"ENERO", sp_justifi_title_header),
-                Paragraph(u"FEBRERO", sp_justifi_title_header),
-                Paragraph(u"MARZO", sp_justifi_title_header),
-                Paragraph(u"ABRIL", sp_justifi_title_header),
-                Paragraph(u"MAYO", sp_justifi_title_header),
-                Paragraph(u"JUNIO", sp_justifi_title_header),
-                Paragraph(u"JULIO", sp_justifi_title_header),
-                Paragraph(u"AGOSTO", sp_justifi_title_header),
-                Paragraph(u"SETIEMBRE", sp_justifi_title_header),
-                Paragraph(u"OCTUBRE", sp_justifi_title_header),
-                Paragraph(u"NOVIEMBRE", sp_justifi_title_header),
-                Paragraph(u"DICIEMBRE", sp_justifi_title_header),
-                Paragraph(u"TOTAL", sp_justifi_title_header),
-            ],
+            CABECERAS,
         ]
 
         data_body = []
         for object in self.constancia['monto_descuento_list']:
             data_body.append(
                 [
-                    Paragraph(u"" + object[0], sp_justifi_title_header),
+                    Paragraph(u"" + object[0].codcon, sp_justifi_title_header),
+                    Paragraph(u"" + object[0].descon, sp_concepto),
                     Paragraph(u"" +
                               '{:,.2f}'.format(object[1].monto) if object[1] != " " else " ", sp_justifi_title_body),
                     Paragraph(u"" +
@@ -351,12 +365,13 @@ class ReportSimulator():
         for index, object in enumerate(self.constancia['monto_descuento_list_total']):
             if index == 0:
                 data_total.append(Paragraph(u"" + object, sp_justifi_title_header))
+                data_total.append(Paragraph("", sp_justifi_title_header))
             else:
                 data_total.append(Paragraph(u"" + '{:,.2f}'.format(object), sp_justifi_title_body))
 
         data_body.append(data_total)
 
-        tabla = Table(data_title + data_body, rowHeights=ROW_HEIGHT)
+        tabla = Table(data_title+data_body, colWidths=COL_WIDTHS, rowHeights=ROW_HEIGHT)
         tabla.setStyle(TableStyle(
             [
                 ('SPAN', (0, 0), (-1, 0)),
@@ -377,22 +392,7 @@ class ReportSimulator():
         data_title = [
             [Paragraph(u"LIQUIDO", sp_justifi_title_header), "", "", "", "", "", "", "", "", "", "", "", "",
              ""],
-            [
-                Paragraph(u"CONCEPTO", sp_justifi_title_header),
-                Paragraph(u"ENERO", sp_justifi_title_header),
-                Paragraph(u"FEBRERO", sp_justifi_title_header),
-                Paragraph(u"MARZO", sp_justifi_title_header),
-                Paragraph(u"ABRIL", sp_justifi_title_header),
-                Paragraph(u"MAYO", sp_justifi_title_header),
-                Paragraph(u"JUNIO", sp_justifi_title_header),
-                Paragraph(u"JULIO", sp_justifi_title_header),
-                Paragraph(u"AGOSTO", sp_justifi_title_header),
-                Paragraph(u"SETIEMBRE", sp_justifi_title_header),
-                Paragraph(u"OCTUBRE", sp_justifi_title_header),
-                Paragraph(u"NOVIEMBRE", sp_justifi_title_header),
-                Paragraph(u"DICIEMBRE", sp_justifi_title_header),
-                Paragraph(u"TOTAL", sp_justifi_title_header),
-            ],
+            CABECERAS,
         ]
 
         data_body = []
@@ -402,12 +402,13 @@ class ReportSimulator():
         for index, object in enumerate(self.constancia['monto_liquido_list_total']):
             if index == 0:
                 data_total.append(Paragraph(u"" + object, sp_justifi_title_header))
+                data_total.append(Paragraph("", sp_justifi_title_header))
             else:
                 data_total.append(Paragraph(u"" + '{:,.2f}'.format(object), sp_justifi_title_body))
 
         data_body.append(data_total)
 
-        tabla = Table(data_title + data_body, rowHeights=ROW_HEIGHT)
+        tabla = Table(data_title+data_body, colWidths=COL_WIDTHS, rowHeights=ROW_HEIGHT)
         tabla.setStyle(TableStyle(
             [
                 ('SPAN', (0, 0), (-1, 0)),
@@ -428,29 +429,15 @@ class ReportSimulator():
         data_title = [
             [Paragraph(u"APORTACIONES", sp_justifi_title_header), "", "", "", "", "", "", "", "", "", "", "", "",
              ""],
-            [
-                Paragraph(u"CONCEPTO", sp_justifi_title_header),
-                Paragraph(u"ENERO", sp_justifi_title_header),
-                Paragraph(u"FEBRERO", sp_justifi_title_header),
-                Paragraph(u"MARZO", sp_justifi_title_header),
-                Paragraph(u"ABRIL", sp_justifi_title_header),
-                Paragraph(u"MAYO", sp_justifi_title_header),
-                Paragraph(u"JUNIO", sp_justifi_title_header),
-                Paragraph(u"JULIO", sp_justifi_title_header),
-                Paragraph(u"AGOSTO", sp_justifi_title_header),
-                Paragraph(u"SETIEMBRE", sp_justifi_title_header),
-                Paragraph(u"OCTUBRE", sp_justifi_title_header),
-                Paragraph(u"NOVIEMBRE", sp_justifi_title_header),
-                Paragraph(u"DICIEMBRE", sp_justifi_title_header),
-                Paragraph(u"TOTAL", sp_justifi_title_header),
-            ],
+            CABECERAS,
         ]
 
         data_body = []
         for object in self.constancia['monto_aportaciones_list']:
             data_body.append(
                 [
-                    Paragraph(u"" + object[0], sp_justifi_title_header),
+                    Paragraph(u"" + object[0].codcon, sp_justifi_title_header),
+                    Paragraph(u"" + object[0].descon, sp_concepto),
                     Paragraph(u"" +
                               '{:,.2f}'.format(object[1].monto) if object[1] != " " else " ", sp_justifi_title_body),
                     Paragraph(u"" +
@@ -484,12 +471,13 @@ class ReportSimulator():
         for index, object in enumerate(self.constancia['monto_aportaciones_list_total']):
             if index == 0:
                 data_total.append(Paragraph(u"" + object, sp_justifi_title_header))
+                data_total.append(Paragraph("", sp_justifi_title_header))
             else:
                 data_total.append(Paragraph(u"" + '{:,.2f}'.format(object), sp_justifi_title_body))
 
         data_body.append(data_total)
 
-        tabla = Table(data_title + data_body, rowHeights=ROW_HEIGHT)
+        tabla = Table(data_title+data_body, colWidths=COL_WIDTHS, rowHeights=ROW_HEIGHT)
         tabla.setStyle(TableStyle(
             [
                 ('SPAN', (0, 0), (-1, 0)),
@@ -506,9 +494,19 @@ class ReportSimulator():
         return tabla
 
     def tabla_footer(self, styles):
+        now = datetime.now()
+        sp_date = ParagraphStyle('parrafos',
+                                 alignment=TA_RIGHT,
+                                 fontSize=8,
+                                 fontName="Times-Roman",
+                                 )
+        date_ = Paragraph(u"" + now.strftime("%d/%m/%Y") + " <br/> " + now.strftime("%H:%M:%S") + "<br/> ", sp_date)
 
         data = [
-            [Paragraph(u"CCG-LIQUIDACIONES, OFICINA DE TESORERÍA", sp_footer)],
+            [Paragraph(u"Fuente: Planilla Unica de Pago de Haberes<br/>" +
+                       "Los funcionarios que firman al pie del presente declaran bajo responsabilidad que la liquidacion presente es veraz y está respaldada por las planillas de pago.",
+                       sp_footer),
+             date_],
         ]
 
         tabla = Table(data)
@@ -522,8 +520,8 @@ class ReportSimulator():
         lWidth, lHeight = A4
 
         doc = SimpleDocTemplate(buffer,
-                                rightMargin=25,
-                                leftMargin=25,
+                                rightMargin=20,
+                                leftMargin=20,
                                 topMargin=0,
                                 bottomMargin=15,
                                 pagesize=(lHeight, lWidth))
