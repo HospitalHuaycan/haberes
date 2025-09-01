@@ -91,7 +91,7 @@ def generar_constancia(request, pk):
                         'tiparch').last()
 
                     if concepto:
-                        monto_ingreso_mes[0] = concepto.abrcon
+                        monto_ingreso_mes[0] = concepto
                     else:
                         monto_ingreso_mes[0] = "-"
                     monto_ingreso_mes.append(detalle)
@@ -118,7 +118,7 @@ def generar_constancia(request, pk):
                                                                                          mes=j[0]).order_by(
                         'tiparch').last()
                     if concepto:
-                        monto_ingreso_mes[0] = concepto.abrcon
+                        monto_ingreso_mes[0] = concepto
                     else:
                         monto_ingreso_mes[0] = "-"
                     monto_ingreso_mes.append(detalle)
@@ -151,7 +151,7 @@ def generar_constancia(request, pk):
                                                                                          mes=j[0]).order_by(
                         'tiparch').last()
                     if concepto:
-                        monto_ingreso_mes[0] = concepto.abrcon
+                        monto_ingreso_mes[0] = concepto
                     else:
                         monto_ingreso_mes[0] = "-"
                     monto_ingreso_mes.append(detalle)
