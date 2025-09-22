@@ -11,7 +11,7 @@ SESSION_EXPIRE_AT_BROWSER_CLOSE = False
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'haberes_2022',
+        'NAME': 'haberes_2015',
         'USER': 'root',
         'PASSWORD': 'Administrador@123',
         'HOST': 'mysql',
@@ -68,8 +68,8 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'haberes_2021',
         'USER': 'root',
-        'PASSWORD': '',
-        'HOST': '127.0.0.1',
+        'PASSWORD': 'Administrador@123',
+        'HOST': 'mysql',
         'PORT': '3306',
         'OPTIONS': {
             'sql_mode': 'traditional',
@@ -87,8 +87,8 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'haberes_2019',
         'USER': 'root',
-        'PASSWORD': '',
-        'HOST': '127.0.0.1',
+        'PASSWORD': 'Administrador@123',
+        'HOST': 'mysql',
         'PORT': '3306',
         'OPTIONS': {
             'sql_mode': 'traditional',
@@ -98,8 +98,8 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'haberes_2018',
         'USER': 'root',
-        'PASSWORD': '',
-        'HOST': '127.0.0.1',
+        'PASSWORD': 'Administrador@123',
+        'HOST': 'mysql',
         'PORT': '3306',
         'OPTIONS': {
             'sql_mode': 'traditional',
@@ -109,8 +109,8 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'haberes_2017',
         'USER': 'root',
-        'PASSWORD': '',
-        'HOST': '127.0.0.1',
+        'PASSWORD': 'Administrador@123',
+        'HOST': 'mysql',
         'PORT': '3306',
         'OPTIONS': {
             'sql_mode': 'traditional',
@@ -120,8 +120,8 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'haberes_2016',
         'USER': 'root',
-        'PASSWORD': '',
-        'HOST': '127.0.0.1',
+        'PASSWORD': 'Administrador@123',
+        'HOST': 'mysql',
         'PORT': '3306',
         'OPTIONS': {
             'sql_mode': 'traditional',
@@ -131,8 +131,8 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'haberes_2015',
         'USER': 'root',
-        'PASSWORD': '',
-        'HOST': '127.0.0.1',
+        'PASSWORD': 'Administrador@123',
+        'HOST': 'mysql',
         'PORT': '3306',
         'OPTIONS': {
             'sql_mode': 'traditional',
@@ -143,8 +143,8 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'haberes_2014',
         'USER': 'root',
-        'PASSWORD': '',
-        'HOST': '127.0.0.1',
+        'PASSWORD': 'Administrador@123',
+        'HOST': 'mysql',
         'PORT': '3306',
         'OPTIONS': {
             'sql_mode': 'traditional',
@@ -154,8 +154,8 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'haberes_2013',
         'USER': 'root',
-        'PASSWORD': '',
-        'HOST': '127.0.0.1',
+        'PASSWORD': 'Administrador@123',
+        'HOST': 'mysql',
         'PORT': '3306',
         'OPTIONS': {
             'sql_mode': 'traditional',
