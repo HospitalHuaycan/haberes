@@ -15,7 +15,7 @@ DATABASES = {
         'NAME': 'haberes_2015',
         'USER': 'root',
         'PASSWORD': 'Administrador@123',
-        'HOST': 'mysql',
+        'HOST': 'haberes2015db-ouiawi',
         'PORT': '3306',
         'OPTIONS': {
             'sql_mode': 'traditional',
@@ -26,7 +26,7 @@ DATABASES = {
         'NAME': 'haberes_2025',
         'USER': 'root',
         'PASSWORD': 'Administrador@123',
-        'HOST': 'mysql',
+        'HOST': 'haberes2015db-ouiawi',
         'PORT': '3306',
         'OPTIONS': {
             'sql_mode': 'traditional',
@@ -37,7 +37,7 @@ DATABASES = {
         'NAME': 'haberes_2024',
         'USER': 'root',
         'PASSWORD': 'Administrador@123',
-        'HOST': 'mysql',
+        'HOST': 'haberes2015db-ouiawi',
         'PORT': '3306',
         'OPTIONS': {
             'sql_mode': 'traditional',
@@ -48,7 +48,7 @@ DATABASES = {
         'NAME': 'haberes_2023',
         'USER': 'root',
         'PASSWORD': 'Administrador@123',
-        'HOST': 'mysql',
+        'HOST': 'haberes2015db-ouiawi',
         'PORT': '3306',
         'OPTIONS': {
             'sql_mode': 'traditional',
@@ -59,7 +59,7 @@ DATABASES = {
         'NAME': 'haberes_2022',
         'USER': 'root',
         'PASSWORD': 'Administrador@123',
-        'HOST': 'mysql',
+        'HOST': 'haberes2015db-ouiawi',
         'PORT': '3306',
         'OPTIONS': {
             'sql_mode': 'traditional',
@@ -70,7 +70,7 @@ DATABASES = {
         'NAME': 'haberes_2021',
         'USER': 'root',
         'PASSWORD': 'Administrador@123',
-        'HOST': 'mysql',
+        'HOST': 'haberes2015db-ouiawi',
         'PORT': '3306',
         'OPTIONS': {
             'sql_mode': 'traditional',
@@ -89,7 +89,7 @@ DATABASES = {
         'NAME': 'haberes_2019',
         'USER': 'root',
         'PASSWORD': 'Administrador@123',
-        'HOST': 'mysql',
+        'HOST': 'haberes2015db-ouiawi',
         'PORT': '3306',
         'OPTIONS': {
             'sql_mode': 'traditional',
@@ -100,7 +100,7 @@ DATABASES = {
         'NAME': 'haberes_2018',
         'USER': 'root',
         'PASSWORD': 'Administrador@123',
-        'HOST': 'mysql',
+        'HOST': 'haberes2015db-ouiawi',
         'PORT': '3306',
         'OPTIONS': {
             'sql_mode': 'traditional',
@@ -111,7 +111,7 @@ DATABASES = {
         'NAME': 'haberes_2017',
         'USER': 'root',
         'PASSWORD': 'Administrador@123',
-        'HOST': 'mysql',
+        'HOST': 'haberes2015db-ouiawi',
         'PORT': '3306',
         'OPTIONS': {
             'sql_mode': 'traditional',
@@ -122,7 +122,7 @@ DATABASES = {
         'NAME': 'haberes_2016',
         'USER': 'root',
         'PASSWORD': 'Administrador@123',
-        'HOST': 'mysql',
+        'HOST': 'haberes2015db-ouiawi',
         'PORT': '3306',
         'OPTIONS': {
             'sql_mode': 'traditional',
@@ -133,7 +133,7 @@ DATABASES = {
         'NAME': 'haberes_2015',
         'USER': 'root',
         'PASSWORD': 'Administrador@123',
-        'HOST': 'mysql',
+        'HOST': 'haberes2015db-ouiawi',
         'PORT': '3306',
         'OPTIONS': {
             'sql_mode': 'traditional',
@@ -145,7 +145,7 @@ DATABASES = {
         'NAME': 'haberes_2014',
         'USER': 'root',
         'PASSWORD': 'Administrador@123',
-        'HOST': 'mysql',
+        'HOST': 'haberes2015db-ouiawi',
         'PORT': '3306',
         'OPTIONS': {
             'sql_mode': 'traditional',
@@ -156,7 +156,7 @@ DATABASES = {
         'NAME': 'haberes_2013',
         'USER': 'root',
         'PASSWORD': 'Administrador@123',
-        'HOST': 'mysql',
+        'HOST': 'haberes2015db-ouiawi',
         'PORT': '3306',
         'OPTIONS': {
             'sql_mode': 'traditional',
