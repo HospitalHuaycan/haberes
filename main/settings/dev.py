@@ -1,6 +1,7 @@
 from .base import *
+import os
 
-DEBUG = True
+DEBUG = os.environ.setdefault('DEBUG', 'False')
 
 CORS_ORIGIN_ALLOW_ALL = True
 
