@@ -98,7 +98,7 @@ class PasswordResetFormCustomizedView(forms.Form):
 
             correo_cuerpo = render_to_string('email/index.html', context)
 
-            sendMail(str(user.email), "DIRIS LIMA SUR (RECUPERACIÓN DE CONTRASEÑAS)", correo_cuerpo)
+            sendMail(str(user.email), "HOSPITAL DE HUAYCÁN (RECUPERACIÓN DE CONTRASEÑAS)", correo_cuerpo)
 
             # user_email = getattr(user, email_field_name)
             # context = {
