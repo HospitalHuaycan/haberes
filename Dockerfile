@@ -2,6 +2,7 @@
 ARG VARIANT=3.8-bookworm
 FROM python:${VARIANT}
 ARG WWWGROUP=1000
+ENV TZ="America/Lima"
 RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
     # Remove imagemagick due to https://security-tracker.debian.org/tracker/CVE-2019-10131
     && apt-get purge -y imagemagick imagemagick-6-common
@@ -11,7 +12,7 @@ RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
 # RUN python3 -m pip install --upgrade \
 #     setuptools \
 #     gitpython
-
+RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 # Evita que Python guarde archivos .pyc y que bufferice logs
 ENV PYTHONDONTWRITEBYTECODE=1
 ENV PYTHONUNBUFFERED=1
