@@ -237,7 +237,7 @@ class Dashboard(TemplateView):
     template_name = "dashboard.html"
 
     def get_context_data(self, **kwargs):
-        self.request.session["anio_list"] = [AnioItem(j.id, j.anio).serialize() for j in Anio.objects.all()]
+        self.request.session["anio_list"] = [AnioItem(j.id, j.anio).serialize() for j in Anio.objects.filter(anio__gte=2014)]
 
         self.request.session['menu_parent'] = 1
         # self.request.session['menu_children'] = 2
