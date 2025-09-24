@@ -33,7 +33,7 @@ RUN python manage.py collectstatic --noinput
 RUN chown -R appuser:appuser /code
 USER appuser
 EXPOSE 8000
-CMD ["python", "manage.py", "runserver", "0.0.0.0"]
+CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
 # [Optional] Uncomment this section to install additional OS packages.
 # RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
 #     && apt-get -y install --no-install-recommends <your-package-list-here>
