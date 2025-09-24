@@ -1,11 +1,10 @@
 services:
   app:
-    build:
-      context: .
-      args:
-        DB_HOST: ${DB_HOST}
-        DEBUG: ${DEBUG}
-        DJANGO_SETTINGS_MODULE: ${DJANGO_SETTINGS_MODULE}
+    build: .
+    environment:
+      - DB_HOST=${DB_HOST}
+      - DEBUG=${DEBUG}
+      - DJANGO_SETTINGS_MODULE=${DJANGO_SETTINGS_MODULE}
     restart: unless-stopped
     volumes:
       - static_volume:/code/staticfiles
