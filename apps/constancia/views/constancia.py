@@ -71,7 +71,7 @@ def generar_constancia(request, pk):
         concepto_aportes_list = conceptos.filter(concepto__startswith='3')
 
         monto_ingreso_list = []
-        monto_ingreso_list_total = ["TOTAL", 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00,
+        monto_ingreso_list_total = ["TOTAL INGRESOS", 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00,
                                     0.00, 0.00]
 
         for i in concepto_ingresos_list:
@@ -104,7 +104,7 @@ def generar_constancia(request, pk):
             monto_ingreso_list.append(monto_ingreso_mes)
 
         monto_descuento_list = []
-        monto_descuento_list_total = ["TOTAL", 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00,
+        monto_descuento_list_total = ["TOTAL DESCUENTOS", 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00,
                                       0.00, 0.00]
         for i in concepto_descuentos_list:
             monto_ingreso_mes = [i[0]]
@@ -130,14 +130,14 @@ def generar_constancia(request, pk):
             monto_descuento_list_total[13] = Decimal(monto_descuento_list_total[13]) + monto_count
             monto_descuento_list.append(monto_ingreso_mes)
 
-        monto_liquido_list_total = ["TOTAL", 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00,
+        monto_liquido_list_total = ["LIQUIDO", 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00,
                                     0.00]
 
         for i in range(1, 14):
             monto_liquido_list_total[i] = Decimal(monto_ingreso_list_total[i]) - Decimal(monto_descuento_list_total[i])
 
         monto_aportaciones_list = []
-        monto_aportaciones_list_total = ["TOTAL", 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00,
+        monto_aportaciones_list_total = ["TOTAL APORTACIONES", 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00,
                                          0.00, 0.00, 0.00]
         for i in concepto_aportes_list:
             monto_ingreso_mes = [i[0]]
@@ -239,7 +239,7 @@ def get_cargo(anio_bd, trabajador, anio):
         try:
             cargo = Cargo.objects.using(anio_bd).filter(codcar=detalle_codcar).last()
             if cargo:
-                cargo_descripcion = cargo.descar
+                cargo_descripcion = cargo.codcar + ' - ' + cargo.descar
         except Cargo.DoesNotExist:
             print(" No encontrado")
 
