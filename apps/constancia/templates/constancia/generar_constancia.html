@@ -291,6 +291,10 @@
        href="{% url 'constancia:pdf' %}?trabajador_id={{ trabajador.id }}&anio_id={{ anio.id }}&pk={{ constancia.id }}">
         <i class="ft-file-text"></i> Generar PDF
     </a>
+    <a class="btn btn-success generate-excel"
+       href="{% url 'constancia:excel' %}?trabajador_id={{ trabajador.id }}&anio_id={{ anio.id }}&pk={{ constancia.id }}">
+        <i class="ft-file-text"></i> Generar Excel
+    </a>
 </div>
 
 <script type="text/javascript">
@@ -311,6 +315,23 @@
             $('.generate-pdf').removeClass('btn-danger');
             $('.generate-pdf').text("");
             $('.generate-pdf').append("<i class='ft-file-text'></i>Generar PDF</a>");
+
+        }, 8000);
+
+    })
+    $('.generate-excel').click(function () {
+        $(this).addClass('disabled');
+        $(this).removeClass('btn-success');
+        $(this).addClass('btn-outline');
+        $('.generate-excel').text("Generando Excel...");
+
+
+        setTimeout(function () {
+            $('.generate-excel').removeClass('disabled');
+            $('.generate-excel').addClass('btn-success');
+            $('.generate-excel').removeClass('btn-outline');
+            $('.generate-excel').text("");
+            $('.generate-excel').append("<i class='ft-file-text'></i>Generar Excel</a>");
 
         }, 8000);
 
