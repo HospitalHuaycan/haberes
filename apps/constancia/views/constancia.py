@@ -35,10 +35,10 @@ class ConstanciaList(FilteredListViewConstancia):
         try:
             anio = Anio.objects.get(pk=anio_id)
 
-            if anio.anio == 2020:
-                db_name = 'default'
-            else:
-                db_name = 'haberes_' + str(anio.anio)
+            # if anio.anio == 2020:
+            #     db_name = 'default'
+            # else:
+            db_name = 'haberes_' + str(anio.anio)
             #
             # queryset = Constancia.objects.using(db_name).all()
             # return queryset
