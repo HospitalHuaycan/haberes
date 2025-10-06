@@ -4,9 +4,11 @@ services:
     container_name: haberes.app
     restart: unless-stopped
     environment:
-      - DB_HOST=${DB_HOST}
       - DEBUG=${DEBUG}
       - DJANGO_SETTINGS_MODULE=${DJANGO_SETTINGS_MODULE}
+      - DB_HOST=${DB_HOST}
+      - DB_USERNAME=${DB_USERNAME}
+      - DB_PASSWORD=${DB_PASSWORD}
     volumes:
       - static_volume:/code/staticfiles
     expose:
