@@ -1,11 +1,12 @@
 services:
   app:
     build: .
+    container_name: app
+    restart: unless-stopped
     environment:
       - DB_HOST=${DB_HOST}
       - DEBUG=${DEBUG}
       - DJANGO_SETTINGS_MODULE=${DJANGO_SETTINGS_MODULE}
-    restart: unless-stopped
     volumes:
       - static_volume:/code/staticfiles
     expose:
@@ -16,6 +17,7 @@ services:
   nginx:
     build: ./nginx
     restart: unless-stopped
+    container_name: nginx
     volumes:
       - static_volume:/code/staticfiles
     expose:
