@@ -10,6 +10,8 @@ services:
       - static_volume:/code/staticfiles
     expose:
       - 8000
+    networks:
+      - proxy
 
   nginx:
     build: ./nginx
@@ -20,6 +22,12 @@ services:
       - 80
     depends_on:
       - app
+    networks:
+      - proxy
 
 volumes:
   static_volume:
+
+networks:
+  proxy:
+    external: true
