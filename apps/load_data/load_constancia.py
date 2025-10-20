@@ -14,10 +14,10 @@ EXCLUDE_LIBELE = [11111111, 22222222, 33333333, 44444444, 55555555, 66666666, 77
 
 
 def load_constancia(MES, ANIO):
-    if ANIO == 2020:
-        db_name = 'default'
-    else:
-        db_name = 'haberes_' + str(ANIO)
+    # if ANIO == 2020:
+    #     db_name = 'default'
+    # else:
+    db_name = 'haberes_' + str(ANIO)
 
     try:
         anio = get_anio(ANIO)

@@ -8,10 +8,10 @@ from apps.load_data.insert_general import get_anio
 
 
 def load_cargos(ANIO):
-    if ANIO == 2020:
-        db_name = 'default'
-    else:
-        db_name = 'haberes_' + str(ANIO)
+    # if ANIO == 2020:
+    #     db_name = 'default'
+    # else:
+    db_name = 'haberes_' + str(ANIO)
 
     try:
         anio = get_anio(ANIO)
