@@ -555,7 +555,6 @@ class ReportSimulator():
 
 def print_constancia_pdf(request):
     from django.http import HttpResponse
-    response = HttpResponse(content_type='application/pdf')
 
     trabajador_id = request.GET.get('trabajador_id', 1)
     anio_id = request.GET.get('anio_id', 1)
@@ -564,10 +563,15 @@ def print_constancia_pdf(request):
     constancia = generar_constancia(request, pk)
     reporte = ReportSimulator('A4', constancia, request.session["anio_bd"])
 
+    # El método imprimir() DEBE devolver un objeto bytes (o BytesIO).
+    pdf_bytes = reporte.imprimir()
+
+    response = HttpResponse(pdf_bytes, content_type='application/pdf') # Pasar los bytes directamente aquí
+
     from datetime import date
     today = date.today()
     pdf_name = "CONSTANCIA_" + str(today) + ".pdf"
     response['Content-Disposition'] = 'attachment; filename=%s' % pdf_name
-    pdf = reporte.imprimir()
-    response.write(pdf)
+
+    # Ya no necesitas response.write(pdf), ya que los bytes se pasaron en la inicialización
     return response
