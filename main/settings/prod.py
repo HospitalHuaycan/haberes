@@ -183,14 +183,17 @@ LOGGING = {
     },
     'formatters': {
         'verbose': {
-            'format': '%(levelname)classification_dropdown %(asctime)classification_dropdown %(module)classification_dropdown %(process)d %(thread)d %(message)classification_dropdown'
+            # CORREGIDO: Usando 's' para string y espacios como separador
+            'format': '%(levelname)s %(asctime)s %(module)s %(process)d %(thread)d %(message)s'
         },
         'app': {
-            'format': "[%(asctime)classification_dropdown] [%(levelname)classification_dropdown] [%(name)classification_dropdown:%(lineno)classification_dropdown] [%(path)classification_dropdown] [%(ip)classification_dropdown] [%(user)classification_dropdown] %(message)classification_dropdown",
+            # CORREGIDO: Usando 's' y '|' como separador
+            'format': "[%(asctime)s] | [%(levelname)s] | [%(name)s:%(lineno)d] | [%(pathname)s] | [%(ip)s] | [%(user)s] | %(message)s",
             'datefmt': "%Y-%m-%d %H:%M:%S"
         },
         'tracing': {
-            'format': "[%(asctime)classification_dropdown] [%(levelname)classification_dropdown] [%(name)classification_dropdown:%(lineno)classification_dropdown] [%(path)classification_dropdown] [%(remote_host)classification_dropdown] [%(server_name)classification_dropdown] [%(language)classification_dropdown] [%(user_agent)classification_dropdown] [%(http_host)classification_dropdown] [%(ip)classification_dropdown] [%(user)classification_dropdown] %(message)classification_dropdown",
+            # CORREGIDO: Usando 's' y '|' como separador
+            'format': "[%(asctime)s] | [%(levelname)s] | [%(name)s:%(lineno)d] | [%(pathname)s] | [%(remote_host)s] | [%(server_name)s] | [%(language)s] | [%(user_agent)s] | [%(http_host)s] | [%(ip)s] | [%(user)s] | %(message)s",
             'datefmt': "%Y-%m-%d %H:%M:%S"
         },
     },
