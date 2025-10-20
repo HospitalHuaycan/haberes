@@ -4,10 +4,10 @@ anios = [2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021,2022,2023,2024,2025]
 
 
 def get_anio(ANIO):
-    if ANIO == 2020:
-        db_name = 'default'
-    else:
-        db_name = 'haberes_' + str(ANIO)
+    # if ANIO == 2020:
+    #     db_name = 'default'
+    # else:
+    db_name = 'haberes_' + str(ANIO)
 
     for i in anios:
         try:

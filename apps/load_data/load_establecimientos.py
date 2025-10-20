@@ -9,10 +9,10 @@ from apps.load_data.load_constancia import EXCLUDE_LIBELE
 
 
 def load_establecimiento(ANIO):
-    if ANIO == 2020:
-        db_name = 'default'
-    else:
-        db_name = 'haberes_' + str(ANIO)
+    # if ANIO == 2020:
+    #     db_name = 'default'
+    # else:
+    db_name = 'haberes_' + str(ANIO)
 
     try:
         anio = get_anio(ANIO)
