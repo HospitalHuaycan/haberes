@@ -78,10 +78,10 @@ DATABASES = {
     },
     'haberes_2020': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'diris_haberes_2020',
+        'NAME': 'haberes_2020',
         'USER': 'root',
         'PASSWORD': 'Administrador@123',
-        'HOST': '127.0.0.1',
+        'HOST': 'mysql',
         'PORT': '3306',
     },
     'haberes_2019': {

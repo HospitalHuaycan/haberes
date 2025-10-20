@@ -248,10 +248,10 @@ class Dashboard(TemplateView):
             anio = Anio.objects.all().last()
 
         self.request.session["anio"] = 0
-        if anio.anio == 2020:
-            self.request.session["anio_bd"] = 'default'
-        else:
-            self.request.session["anio_bd"] = 'haberes_' + str(anio.anio)
+        # if anio.anio == 2020:
+        #     self.request.session["anio_bd"] = 'default'
+        # else:
+        self.request.session["anio_bd"] = 'haberes_' + str(anio.anio)
 
         return dict(super(Dashboard, self).get_context_data(**kwargs))
 
@@ -321,10 +321,10 @@ def change_anio(request):
             anio = Anio.objects.get(pk=int(anio_id))
             msg = "Cambiando al año: " + str(anio.anio)
             messages.add_message(request, messages.INFO, msg)
-            if anio.anio == 2020:
-                request.session["anio_bd"] = 'default'
-            else:
-                request.session["anio_bd"] = 'haberes_' + str(anio.anio)
+            # if anio.anio == 2020:
+            #     request.session["anio_bd"] = 'default'
+            # else:
+            request.session["anio_bd"] = 'haberes_' + str(anio.anio)
         except Anio.DoesNotExist:
             print("Error")
 
