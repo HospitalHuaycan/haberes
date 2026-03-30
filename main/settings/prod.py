@@ -24,6 +24,18 @@ DATABASES = {
             'sql_mode': 'traditional',
         }
     },
+      'haberes_2026': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'haberes_2026',
+        'USER': 'root',
+        'PASSWORD': 'Administrador@123',
+        'HOST': 'mysql',
+        'PORT': '3306',
+        'OPTIONS': {
+            'sql_mode': 'traditional',
+        }
+
+    },
     'haberes_2025': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'haberes_2025',

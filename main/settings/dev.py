@@ -12,8 +12,8 @@ SESSION_EXPIRE_AT_BROWSER_CLOSE = False
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'haberes_2024',
-        'USER': 'root',
+        'NAME': 'haberes_2026',
+        'USER': 'sail',
         'PASSWORD': 'Administrador@123',
         'HOST': 'mysql',
         'PORT': '3306',
@@ -21,6 +21,19 @@ DATABASES = {
             'sql_mode': 'traditional',
         }
     },
+      'haberes_2026': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'haberes_2026',
+        'USER': 'root',
+        'PASSWORD': 'Administrador@123',
+        'HOST': 'mysql',
+        'PORT': '3306',
+        'OPTIONS': {
+            'sql_mode': 'traditional',
+        }
+
+    },
+      
     'haberes_2025': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'haberes_2025',
@@ -31,6 +44,7 @@ DATABASES = {
         'OPTIONS': {
             'sql_mode': 'traditional',
         }
+
     },
     'haberes_2024': {
         'ENGINE': 'django.db.backends.mysql',
