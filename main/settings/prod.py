@@ -24,12 +24,12 @@ DATABASES = {
             'sql_mode': 'traditional',
         }
     },
-      'haberes_2026': {
+    'haberes_2026': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'haberes_2026',
-        'USER': 'root',
-        'PASSWORD': 'Administrador@123',
-        'HOST': 'mysql',
+        'USER': DATABASE_USERNAME,
+        'PASSWORD': DATABASE_PASSWORD,
+        'HOST': DATABASE_HOST,
         'PORT': '3306',
         'OPTIONS': {
             'sql_mode': 'traditional',

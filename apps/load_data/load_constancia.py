@@ -26,16 +26,16 @@ def load_constancia(MES, ANIO):
         BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
         BD = BASE_DIR + '/load_data/' + str(ANIO) + '/' + mes_string + '/PLMOVMAE.xlsx'
         df_source = pd.read_excel(BD, dtype={'LIBELE': 'string', 'NOM': 'string', 'PAT': 'string', 'MAT': 'string', })
-        # df_source_1 = df_source.loc[df_source["RESCES"].isnull()]  # Limite de edad o cese
-        # df_other = df_source_1.loc[df_source_1["C1"].notnull()]  # Conceptos y montos
-        # # df_other = df_source_1.loc[df_source_1["EC1"].notnull()]  # SOLO PARA EL 2020
-        df = df_source.loc[df_source['LIBELE'] == '08419437']  # Cambiar RESCES a NULL (None en pandas)
+        df_source_1 = df_source.loc[df_source["RESCES"].isnull()]  # Limite de edad o cese
+        df_other = df_source_1.loc[df_source_1["C1"].notnull()]  # Conceptos y montos
+        # df_other = df_source_1.loc[df_source_1["EC1"].notnull()]  # SOLO PARA EL 2020
+        df = df_other.loc[df_other["INDICA"].notnull()]  # W
 
 
         list_zip = zip(df["PLAZA"], df["LIBELE"], df["NOM"], df["PAT"], df["MAT"], df["FECNAC"], df["SEXO"],
-                       df["NHIJOS"],
-                       df["C1"], df["C2"], df["C3"], df["C4"], df["CODEJE"], df["CODFUN"], df["CODPRO"], df["CODSUB"],
-                       df["TIPOPLA"], df["PROGSUB"], df["CODEST"], df["CODCOM"], df["SERV"], df["CODCAR"], df["CODNIV"])
+                    df["NHIJOS"],
+                    df["C1"], df["C2"], df["C3"], df["C4"], df["CODEJE"], df["CODFUN"], df["CODPRO"], df["CODSUB"],
+                    df["TIPOPLA"], df["PROGSUB"], df["CODEST"], df["CODCOM"], df["SERV"], df["CODCAR"], df["CODNIV"])
 
         contador = 1
 
@@ -43,7 +43,7 @@ def load_constancia(MES, ANIO):
             contador += 1
             print(" ************* Contador -->> " + str(contador))
 
-            if 1==1:
+            if (data[18] != 999999999) and (data[1] not in EXCLUDE_LIBELE):
 
                 fila = ""
                 # if str(data[1]) != "nan" and data[23][1] == '1':
