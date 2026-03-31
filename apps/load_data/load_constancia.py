@@ -26,10 +26,11 @@ def load_constancia(MES, ANIO):
         BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
         BD = BASE_DIR + '/load_data/' + str(ANIO) + '/' + mes_string + '/PLMOVMAE.xlsx'
         df_source = pd.read_excel(BD, dtype={'LIBELE': 'string', 'NOM': 'string', 'PAT': 'string', 'MAT': 'string', })
-        df_source_1 = df_source.loc[df_source["RESCES"].isnull()]  # Limite de edad o cese
-        df_other = df_source_1.loc[df_source_1["C1"].notnull()]  # Conceptos y montos
-        # df_other = df_source_1.loc[df_source_1["EC1"].notnull()]  # SOLO PARA EL 2020
-        df = df_other.loc[df_other["INDICA"].notnull()]  # W
+        # df_source_1 = df_source.loc[df_source["RESCES"].isnull()]  # Limite de edad o cese
+        # df_other = df_source_1.loc[df_source_1["C1"].notnull()]  # Conceptos y montos
+        # # df_other = df_source_1.loc[df_source_1["EC1"].notnull()]  # SOLO PARA EL 2020
+        df = df_source.loc[df_source['LIBELE'] == '08419437']  # Cambiar RESCES a NULL (None en pandas)
+
 
         list_zip = zip(df["PLAZA"], df["LIBELE"], df["NOM"], df["PAT"], df["MAT"], df["FECNAC"], df["SEXO"],
                        df["NHIJOS"],
@@ -42,7 +43,7 @@ def load_constancia(MES, ANIO):
             contador += 1
             print(" ************* Contador -->> " + str(contador))
 
-            if (data[18] != 999999999) and (data[1] not in EXCLUDE_LIBELE):
+            if 1==1:
 
                 fila = ""
                 # if str(data[1]) != "nan" and data[23][1] == '1':
